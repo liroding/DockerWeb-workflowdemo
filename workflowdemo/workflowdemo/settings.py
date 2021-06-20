@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-
+import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'adminlte',
     'workflow',
     'ckeditor',    
+    'LoginApp',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +84,7 @@ WSGI_APPLICATION = 'workflowdemo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mysite_mysqldb',
+        'NAME': 'workflowdemo_mysqldb',
 	'USER': 'root',
 	'PASSWORD': 'dingyinglai',
 	'HOST':	'localhost',
@@ -133,10 +134,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-if not os.path.exists(MEDIA_ROOT):
-    os.mkdir(MEDIA_ROOT, mode=511)
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#if not os.path.exists(MEDIA_ROOT):
+#    os.mkdir(MEDIA_ROOT, mode=511)
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
@@ -162,6 +163,7 @@ SESSION_COOKIE_NAME = 'workflowdemosession'
 LOGIN_REDIRECT_URL = '/'
 
 # 以下为loonflow后端地址及在loonflow中配置的授权应用及token. 初始化sql中是此记录，如果有在loonflow中修改，此处也需要相应修改
-WORKFLOWBACKENDURL = "http://127.0.0.1:8000"
-WORKFLOWTOKEN = "8cd585da-3cc6-11e8-9946-784f437daad6"
+WORKFLOWBACKENDURL = "http://127.0.0.1:10000"
+WORKFLOWTOKEN = "3c0fd000-d107-11eb-ae3f-0242ac110002"
 WORKFLOWAPPNAME = "ops"
+sys.path.insert(0,os.path.join(BASE_DIR,'Apps'))

@@ -29,7 +29,7 @@ urlpatterns = [
         LogoutView.as_view(template_name='registration/logged_out.html'), name='logout'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', Index.as_view(),name='index'),
-    
+    path('login/',include('LoginApp.urls')),
 ]
 
 if settings.DEBUG:

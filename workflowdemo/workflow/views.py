@@ -15,9 +15,11 @@ import time
 from workflow.apirequest import WorkFlowAPiRequest
 from django.contrib.auth.models import User
 
+from django.contrib.auth.decorators import login_required
+
 class Index(LoginRequiredMixin, TemplateView):
     template_name = 'workflow/index.html'
-
+    print("p1")
     def get_context_data(self, **kwargs):
         context = super(Index, self).get_context_data(**kwargs)
         #context['workflows'] = Workflow.objects.all()
@@ -25,6 +27,7 @@ class Index(LoginRequiredMixin, TemplateView):
         status,data = ins.getdata(dict(per_page=20, name=''),method='get',url='/api/v1.0/workflows')
         if status:
             context['workflows'] = data['data']['value']
+        print("p2")
         return context
 
 

@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Signin MyWebSite</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/bootstrap/css/signin.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <title>注册</title>
+</head>
+<body>
+<!--表单域，action用于将获取的到信息提交到后台地址-->
+<div class="container">
+<form target="form" class="form-signin" action="save" method="post">
+    <span>
+        用户:<input type="text" placeholder="输入用户" name="username">
+    </span>
+    <br>
+    <span>
+        密码:<input type="password" placeholder="输入密码" name="password">
+    </span>
+    <br>
+    <span>
+        邮箱:<input type="text" placeholder="选填" name="mail">
+    </span>
+    <br>
+    <span>
+        <input type="submit" name="submit1" value="注册">
+    </span>
+
+</form>
+<iframe name="form" id="form" style="display:none"></iframe>
+</div> <!-- /container -->
+
+
+
+<script src="/static/bootstrap/js/jquery.js"></script>
+<script src="/static/bootstrap/js/jquery-ui.js"></script>
+<script src="/static/bootstrap/js/jquery-ui.min.js"></script>
+
+<script>
+$("#submit").click();
+$("#form").load(function(){
+   var restr = $(this).contents().find("body").text(); 
+   if (restr == "login success")
+   {
+	alert("注册成功,您注册邮箱会收到提示信息，请您查看~~");
+	url = "../accounts/login"; 
+ 	window.location.href= url;	
+   }
+   else{
+	alert("注册失败:" + restr);
+	url = "register"; 
+ 	window.location.href= url;	
+   }
+}
+)
+
+
+</script>
+
+</body>
+</html>

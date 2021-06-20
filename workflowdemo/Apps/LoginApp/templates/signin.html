@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Signin MyWebSite</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <link href="/static/bootstrap/css/signin.css" rel="stylesheet">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin" action="query" method="post">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">User name</label>
+        <input name="user" type="text" id="inputUsername" class="form-control" placeholder="User name" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="button" id="ulogin">Sign in</button>
+      </form>
+
+    </div> <!-- /container -->
+
+
+
+
+    <!--liroding -->
+    <script src="/static/bootstrap/js/jquery.js"></script>
+    <!-- -->
+    <script language = 'javascript' type='text/javascript'>
+
+    var serverip = "8.140.114.120"
+    var serverport = "8080"
+    function updatejsondata(){
+
+//      var tb = document.getElementByid('cfgtable');
+        alert('ddd');
+    }
+
+    $("#ulogin").click(function(){
+
+	var username=$("#inputUsername").val();
+	var password=$("#inputPassword").val();
+        alert('hello,' + username);
+	suburl = "/login/query" 
+	gurl = "http://" + serverip + ":" + serverport + suburl;
+	//alert(gurl);
+	$.post(gurl,
+        {
+            type:"login",
+            user:username,
+    	    password:password,        
+        },
+        function(data,status){
+                console.log("server rt date: \n" + data + "\nstatus: " + status);
+		
+		if (data == "success"){
+		
+			alert('登陆成功！');
+			localStorage.setItem("user",username);
+			
+			//jump to the /main/index url
+			window.location.href= "/main/index";
+				
+		}else{	
+			alert('登陆失败！！！');
+		
+			$("#inputUsername").val('');
+                        $("#inputPassword").val('');
+		}
+                //var jsonstr = data;
+                //console.log("json str : " + jsonstr);
+                //jsonformatdata = JSON.parse(jsonstr);
+
+                //console.log(jsonformatdata[0]['title']);
+
+
+        });
+
+    });
+
+    </script>
+
+
+
+
+
+
+  </body>
+</html>
