@@ -1,0 +1,1000 @@
+ 1078  cd ../
+ 1079  ls
+ 1080  ll
+ 1081  docker ps -a
+ 1082  docker stop 748c50d9e25b
+ 1083  docker stop 3d324a92d4d2
+ 1084  docker ps -a
+ 1085  ls
+ 1086  cd DockerWeb-workflowdemo/
+ 1087  ls
+ 1088  mv workflowdemo ../11/DockerWeb-workflowdemo/
+ 1089  ls
+ 1090  cd ..
+ 1091  ls
+ 1092  cd 11/
+ 1093  ls
+ 1094  cd DockerWeb-workflowdemo/
+ 1095  ls
+ 1096  cd ../
+ 1097  ls
+ 1098  cd ../
+ 1099  ls
+ 1100  rm DockerWeb-workflowdemo/ -rf
+ 1101  ls
+ 1102  cd 11/
+ 1103  ls
+ 1104  mv DockerWeb-loonflowenergy ../
+ 1105  ls
+ 1106  cd ..
+ 1107  ls
+ 1108  cd DockerWeb-loonflowenergy/
+ 1109  ls
+ 1110  git remote -v
+ 1111  cd ../
+ 1112  ls
+ 1113  cd 11/
+ 1114  ls
+ 1115  mv DockerWeb-workflowdemo ../
+ 1116  ls
+ 1117  cd ..
+ 1118  ls
+ 1119  cd 11/
+ 1120  ls
+ 1121  cd ..
+ 1122  ls
+ 1123  rm 11
+ 1124  rm 11 
+ 1125  rm 11 -rf
+ 1126  ls
+ 1127  cd DockerWeb-workflowdemo/
+ 1128  ls
+ 1129  cd workflowdemo/
+ 1130  ls
+ 1131  git remote -v
+ 1132  ls
+ 1133  cd workspace/
+ 1134  ls
+ 1135  cd git/
+ 1136  ls
+ 1137  cd DockerWeb-workflowdemo/
+ 1138  ls
+ 1139  cd workflowdemo/
+ 1140  ls
+ 1141  git status 
+ 1142  cd ..
+ 1143  ls
+ 1144  cd workflowdemo/
+ 1145  ls
+ 1146  cd templates/
+ 1147  ls
+ 1148  cd ..
+ 1149  ls
+ 1150  vim 
+ 1151  ls
+ 1152  clear
+ 1153  ls
+ 1154  cd static/
+ 1155  ls
+ 1156  cd ..
+ 1157  ls
+ 1158  cd workflowdemo/
+ 1159  ls
+ 1160  vim settings.py 
+ 1161  ls
+ 1162  cd ../
+ 1163  ls
+ 1164  cd ../
+ 1165  ls
+ 1166  cd ..
+ 1167  ls
+ 1168  cd DockerWeb-mysite/
+ 1169  ls
+ 1170  cd mysite
+ 1171  ls
+ 1172  cd templates/
+ 1173  ls
+ 1174  cd ..
+ 1175  ls
+ 1176  cd mysite/
+ 1177  ls
+ 1178  vim settings.py 
+ 1179  ls
+ 1180  cp settings.py ../../../DockerWeb-workflowdemo/workflowdemo/workflowdemo/settings_bk.py
+ 1181  cd ./DockerWeb-workflowdemo/workflowdemo/workflowdemo/
+ 1182  cd ../../../DockerWeb-workflowdemo/workflowdemo/workflowdemo/
+ 1183  ls
+ 1184  vim settings_bk.py 
+ 1185  ls
+ 1186  cd ../
+ 1187  ls
+ 1188  cd -
+ 1189  ls
+ 1190  vim settings.py 
+ 1191  ls
+ 1192  vim settings_bk.py 
+ 1193  ls
+ 1194  vim settings.py 
+ 1195  ls
+ 1196  rm settings_bk.py 
+ 1197  ls
+ 1198  vim urls.py 
+ 1199  ls
+ 1200  vim wsgi.py 
+ 1201  cd ../../
+ 1202  ls
+ 1203  cd ..
+ 1204  ls
+ 1205  cd ..
+ 1206  ls
+ 1207  cd git/
+ 1208  ls
+ 1209  cd DockerWeb-mysite/
+ 1210  ls
+ 1211  cd mysite
+ 1212  ls
+ 1213  cd mysite/
+ 1214  ls
+ 1215  vim wsgi.py 
+ 1216  ls
+ 1217  cp wsgi.py ../../../DockerWeb-workflowdemo/workflowdemo/workflowdemo/wsgi.py_bk
+ 1218  cd ..
+ 1219  ls
+ 1220  cd mysite/
+ 1221  ls
+ 1222  vim __init__.py 
+ 1223  cp __init__.py ../../../DockerWeb-workflowdemo/workflowdemo/workflowdemo/__init__.py 
+ 1224  cp __init__.py ../../../DockerWeb-workflowdemo/workflowdemo/workflowdemo/__init__.py_bk 
+ 1225  ls
+ 1226  cd ../../../DockerWeb-workflowdemo/workflowdemo/workflowdemo/
+ 1227  ls
+ 1228  vim __init__.py
+ 1229  ls
+ 1230  touch __init__.py
+ 1231  ls
+ 1232  vim __init__.py
+ 1233  rm __init__.py
+ 1234  touch __init__.py
+ 1235  vim __init__.py
+ 1236  ls
+ 1237  cp __init__.py_bk __init__.py
+ 1238  vim __init__.py
+ 1239  ls
+ 1240  rm __init__.py_bk
+ 1241  ls
+ 1242  vim wsgi.py
+ 1243  cp wsgi.py_bk wsgi.py
+ 1244  vim wsgi.py
+ 1245  ls
+ 1246  rm wsgi.py_bk 
+ 1247  ls
+ 1248  cd ../
+ 1249  cd ..
+ 1250  ls
+ 1251  git status 
+ 1252  cd workflowdemo/
+ 1253  git status 
+ 1254  ls
+ 1255  git status
+ 1256  ls
+ 1257  cd ..
+ 1258  ls
+ 1259  git remote -v
+ 1260  git status
+ 1261  git add workflowdemo
+ 1262  git status 
+ 1263  git commit -m 'first init'
+ 1264  git push
+ 1265  ls
+ 1266  git log
+ 1267  ls
+ 1268  cd workflowdemo/
+ 1269  ls
+ 1270  cd workflowdemo/
+ 1271  ls
+ 1272  vim settings.py 
+ 1273  ls
+ 1274  docker ps -a 
+ 1275  history
+ 1276  ls
+ 1277  docker ps -a
+ 1278  docker start 439926fffef9 
+ 1279  docker exec -it 439926fffef9 /bin/bash
+ 1280  ls
+ 1281  history
+ 1282  docker ps -a
+ 1283  history
+ 1284  ls
+ 1285  lsls
+ 1286  ls
+ 1287  cd workspace/
+ 1288  ls
+ 1289  cd git/
+ 1290  ls
+ 1291  docker ps -a
+ 1292  docker inspect 439926fffef9
+ 1293  ls
+ 1294  docker ps -a
+ 1295  history
+ 1296  docker commit -a "liroding" -m "image test" c6a911e16f5a dingyinglai/workflow_imagebase:v2
+ 1297  docker ps -a
+ 1298  docker images
+ 1299  ls
+ 1300  docker ps -a
+ 1301  docker images 
+ 1302  docker rmi dingyinglai/workflow_imagebase:v2
+ 1303  docker ps -a
+ 1304  docker stop ce87d2cddbe6
+ 1305  docker rmi dingyinglai/workflow_imagebase:v2
+ 1306  docker rm dingyinglai/workflow_imagebase:v2
+ 1307  docker ps -a
+ 1308  docker rm ce87d2cddbe6
+ 1309  docker ps -a
+ 1310  docker exec -it c6a911e16f5a /bin/bash
+ 1311  docker ps -a
+ 1312  history
+ 1313  docker commit -a "liroding" -m "create workflow base image" 439926fffef9 dingyinglai/workflow_imagebase:v1
+ 1314  docker ps -a
+ 1315  docker stop 439926fffef9 
+ 1316  docker images 
+ 1317  docker ps -a
+ 1318  ls
+ 1319  cd workspace/
+ 1320  ls
+ 1321  cd git/
+ 1322  ls
+ 1323  docker ps -a
+ 1324  docker images -a
+ 1325  docker exec -it dingyinglai/workflow_imagebase /bin/bash
+ 1326  history
+ 1327  ls
+ 1328  history
+ 1329  docker run -p 8000:8000 -it -v /home/liroding/workspace/git/DockerWeb-workflowdemo/:/opt/workflowdemo --name liro_workflow dingyinglai/workflow_imagebase:v1 /bin/bash
+ 1330  docker ps -a
+ 1331  docker exec -it c6a911e16f5a /bin/bash
+ 1332  docker rm c6a911e16f5a
+ 1333  docker stop c6a911e16f5a
+ 1334  docker rm c6a911e16f5a
+ 1335  historcy
+ 1336  history
+ 1337  docker ps -a
+ 1338  docker exec -it f0a397098858 /bin/bash
+ 1339  docker ps -a
+ 1340  docker exec -it f0a397098858 /bin/bash
+ 1341  ls
+ 1342  cd workspace/
+ 1343  ls
+ 1344  cd i
+ 1345  cd git/
+ 1346  ls
+ 1347  cd DockerWeb-
+ 1348  cd DockerWeb-mysite/
+ 1349  ls
+ 1350  cd mysite
+ 1351  ls
+ 1352  vim manage.py 
+ 1353  ls
+ 1354  cp manage.py migrate.sh ../../DockerWeb-workflowdemo/workflowdemo/
+ 1355  docker ps -a
+ 1356  docker exec -it f0a397098858 /bin/bash
+ 1357  docker ps -a
+ 1358  docker exec -it f0a397098858 /bin/bash
+ 1359  ls
+ 1360  cd workspace/
+ 1361  ls
+ 1362  cd git/
+ 1363  ls
+ 1364  cd DockerWeb-workflowdemo/
+ 1365  ls
+ 1366  cd workflowdemo/
+ 1367  ls
+ 1368  cp ../../DockerWeb-mysite/mysite/myscript ./ -rf
+ 1369  ls
+ 1370  git status
+ 1371  ls
+ 1372  docker ps -a
+ 1373  docker exec -it f0a397098858 /bin/bash
+ 1374  ls
+ 1375  cd ..
+ 1376  ls
+ 1377  cd ../
+ 1378  ls
+ 1379  cd DockerWeb-mysite/
+ 1380  ls
+ 1381  cd mysite
+ 1382  ls
+ 1383  cd mysite/
+ 1384  ls
+ 1385  vim settings.py 
+ 1386  ls
+ 1387  cd ..
+ 1388  ls
+ 1389  cd ..
+ 1390  ls
+ 1391  cd ..
+ 1392  ls
+ 1393  cd DockerWeb-workflowdemo/
+ 1394  ls
+ 1395  cd workflowdemo/
+ 1396  ls
+ 1397  cd workflowdemo/
+ 1398  ls
+ 1399  vim settings.py 
+ 1400  ls
+ 1401  cd ..
+ 1402  ls
+ 1403  cd static/
+ 1404  ls
+ 1405  cd ../
+ 1406  ls
+ 1407  cd workflowdemo/
+ 1408  ls
+ 1409  vim settings.py 
+ 1410  docker ps -a
+ 1411  docker exec -it f0a397098858 /bin/bash
+ 1412  docker ps -a
+ 1413  docker start 1c379fb831bc
+ 1414  docker ps -a
+ 1415  docker exec -it 1c379fb831bc /bin/bash
+ 1416  docker ps -a
+ 1417  docker exec -it f0a397098858 /bin/bash
+ 1418  ls
+ 1419  cat settings.py 
+ 1420  mysql -uroot -p
+ 1421  ls
+ 1422  docker ps -a
+ 1423  docker exec -it f0a397098858 /bin/bash
+ 1424  ls
+ 1425  cd ../
+ 1426  ls
+ 1427  cd ../
+ 1428  ls
+ 1429  cd ..
+ 1430  ls
+ 1431  cd DockerWeb-mysite/
+ 1432  ls
+ 1433  cd mysite
+ 1434  ls
+ 1435  cd mysqlbackup/
+ 1436  ls
+ 1437  cp all.sql ../../../DockerWeb-workflowdemo/workflowdemo/
+ 1438  docker ps -a
+ 1439  docker exec -it f0a397098858 /bin/bash
+ 1440  docker ps -a
+ 1441  docker exec -it f0a397098858 /bin/bash
+ 1442  ls
+ 1443  cd workspace/
+ 1444  ls
+ 1445  cd git/
+ 1446  ls
+ 1447  cd DockerWeb-mysite/
+ 1448  ls
+ 1449  cd mysite
+ 1450  ls
+ 1451  cd Apps/
+ 1452  LS
+ 1453  ls
+ 1454  cd ..
+ 1455  ls
+ 1456  cp Apps ../../DockerWeb-workflowdemo/workflowdemo/ -rf
+ 1457  ls
+ 1458  cd mysite/
+ 1459  ls
+ 1460  vim settings.py 
+ 1461  cp settings.py ../../../DockerWeb-workflowdemo/workflowdemo/liro.log
+ 1462  cd ~
+ 1463  ls
+ 1464  docker ps -a
+ 1465  docker exec -it f0a397098858 /bin/bash
+ 1466  ls
+ 1467  cd workspace/
+ 1468  ls
+ 1469  cd git/
+ 1470  ls
+ 1471  cd DockerWeb-mysite/
+ 1472  ls
+ 1473  cd mysite
+ 1474  ls
+ 1475  cd Apps/
+ 1476  ls
+ 1477  cd LoginApp/
+ 1478  ls
+ 1479  vim Login.py 
+ 1480  ls
+ 1481  vim views.py 
+ 1482  ls
+ 1483  vim urls.py 
+ 1484  docker ps -a
+ 1485  docker exec -it f0a397098858 /bin/bash
+ 1486  ls
+ 1487  cd ../../
+ 1488  ls
+ 1489  cd mysite/
+ 1490  ls
+ 1491  vim urls.py 
+ 1492  ls
+ 1493  vim urls.py 
+ 1494  s
+ 1495  docker ps -a
+ 1496  docker exec -it f0a397098858 /bin/bash
+ 1497  ls
+ 1498  cd workspace/
+ 1499  ls
+ 1500  cd git/
+ 1501  ls
+ 1502  cd DockerWeb-workflowdemo/workflowdemo/
+ 1503  ls
+ 1504  cd Apps/
+ 1505  ls
+ 1506  cd LoginApp/
+ 1507  ls
+ 1508  vim Login.py 
+ 1509  ll
+ 1510  rm .Login.py.swp 
+ 1511  g Login.py 
+ 1512  ls
+ 1513  cd ../
+ 1514  ls
+ 1515  cd ../
+ 1516  ls
+ 1517  cd ../
+ 1518  ls
+ 1519  cd ../
+ 1520  ls
+ 1521  cd DockerWeb-mysite/
+ 1522  ls
+ 1523  cd mysite
+ 1524  ls
+ 1525  cd templates/
+ 1526  ls
+ 1527  cd mywebsite/
+ 1528  ls
+ 1529  cd ../
+ 1530  ls
+ 1531  cd ../
+ 1532  ls
+ 1533  cd static/
+ 1534  ls
+ 1535  cd admin/
+ 1536  ls
+ 1537  cd ../
+ 1538  ls
+ 1539  cd Apps/
+ 1540  ls
+ 1541  cd LoginApp/
+ 1542  ls
+ 1543  cd templates/
+ 1544  ls
+ 1545  cd ../
+ 1546  docker ps -a
+ 1547  docker exec -it f0a397098858 /bin/bash
+ 1548  docker ps -a
+ 1549  docker ps -a
+ 1550  docker stop 1c379fb831bc
+ 1551  ls
+ 1552  cd workspace/
+ 1553  ls
+ 1554  cd git/
+ 1555  ls
+ 1556  cd DockerWeb-workflowdemo/
+ 1557  ls
+ 1558  cd workflowdemo/
+ 1559  ls
+ 1560  top
+ 1561  ls
+ 1562  docker ps -a
+ 1563  docker start f0a397098858 
+ 1564  docker exec -it f0a397098858 /bin/bash
+ 1565  docker ps -a
+ 1566  ls
+ 1567  cd workspace/
+ 1568  ls
+ 1569  cd git/
+ 1570  ls
+ 1571  cd DockerWeb-workflowdemo
+ 1572  ls
+ 1573  cd workflowdemo/
+ 1574  ls
+ 1575  cd workflowdemo/
+ 1576  ls
+ 1577  vim settings.py 
+ 1578  ls
+ 1579  vim urls.py 
+ 1580  ls
+ 1581  cd ..
+ 1582  ls
+ 1583  cd workflow
+ 1584  ls
+ 1585  vim views.py 
+ 1586  /etc/init.d/apa
+ 1587  ls
+ 1588  docker ps -a
+ 1589  docker exec -it f0a397098858 /bin/bash
+ 1590  docker ps 
+ 1591  docker ps -a
+ 1592  ls
+ 1593  cd workspace/
+ 1594  ls
+ 1595  cd git/
+ 1596  ls
+ 1597  cd DockerWeb-workflowdemo/
+ 1598  ls
+ 1599  cd workflowdemo/
+ 1600  ls
+ 1601  cd Apps/
+ 1602  ls
+ 1603  cd LoginApp/
+ 1604  ls
+ 1605  vim views.py 
+ 1606  ls
+ 1607  vim Login.py 
+ 1608  ls
+ 1609  cp Login.py Login.py_BK
+ 1610  ls
+ 1611  vim Login.py
+ 1612  docker ps -a
+ 1613  docker exec -it f0a397098858 /bin/bash
+ 1614  docker ps -a
+ 1615  history
+ 1616  docker commit -a "liroding" -m "add workflowdemo" 439926fffef9 dingyinglai/workflow_imagebase:v2
+ 1617  docker stop
+ 1618  docker ps -a
+ 1619  docker stop f0a397098858
+ 1620  docker ps -a
+ 1621  docker images 
+ 1622  docker rm 2883b42574a9
+ 1623  docker rmi 2883b42574a9
+ 1624  docker ps -a
+ 1625  docker images 
+ 1626  ls
+ 1627  cd workspace/
+ 1628  ls
+ 1629  cd git/
+ 1630  ls
+ 1631  docker ps -a
+ 1632  docker start 748c50d9e25b
+ 1633  docker exec -it 748c50d9e25b /bin/bash
+ 1634  docker ps -a
+ 1635  docker stop 748c50d9e25b
+ 1636  docker start 3d324a92d4d2
+ 1637  docker ps -a
+ 1638  docker exec -it 3d324a92d4d2 /bin/bash
+ 1639  docker ps -a
+ 1640  docker stop 3d324a92d4d2
+ 1641  docker ps -
+ 1642  docker ps -a
+ 1643  docker images 
+ 1644  ls
+ 1645  history
+ 1646  docker run -p 8000:8000 -i-t -v /home/liroding/workspace/git/DockerWeb-workflowdemo/:/opt/workflowdemo --name liro_workflow dingyinglai/workflow_imagebase:v1 /bin/bash
+ 1647  docker run -p 6000:6000 -p 7000:7000  -it -v /home/liroding/workspace/git/DockerWeb-workflowdemo/:/opt/workflowdemo -v /home/liroding/workspace/git/DockerWeb-loonflowenergy/:/opt/loonflowenergy -name liro_workflow_v2 dingyinglai/workflow_imagebase:v2 /bin/bash
+ 1648  docker ps -a
+ 1649  docker run -p 6000:6000 -p 7000:7000  -it -v /home/liroding/workspace/git/DockerWeb-workflowdemo/:/opt/workflowdemo -v /home/liroding/workspace/git/DockerWeb-loonflowenergy/:/opt/loonflowenergy --name liro_workflow_v2 dingyinglai/workflow_imagebase:v2 /bin/bash
+ 1650  docker ps -a
+ 1651  docker rm a8d6cec8c672
+ 1652  docker stop a8d6cec8c672
+ 1653  docker rm a8d6cec8c672
+ 1654  docker ps -a
+ 1655  docker images
+ 1656  docker rm dingyinglai/workflow_imagebase:v2
+ 1657  docker rmi 0317a1303679
+ 1658  docker images -a
+ 1659  history
+ 1660  docker ps -a
+ 1661  docker commit -a "liroding" -m "add workflowdemo" f0a397098858 dingyinglai/workflow_imagebase:v2
+ 1662  docker images 
+ 1663  history
+ 1664  ls
+ 1665  docker run -p 6000:6000 -p 7000:7000  -it -v /home/liroding/workspace/git/DockerWeb-workflowdemo/:/opt/workflowdemo -v /home/liroding/workspace/git/DockerWeb-loonflowenergy/:/opt/loonflowenergy --name liro_workflow_v2 dingyinglai/workflow_imagebase:v2 /bin/bash
+ 1666  docker ps -a
+ 1667  docker ps -a
+ 1668  docker stop ad42b0e220b8
+ 1669  docker rm ad42b0e220b8
+ 1670  docker ps -a
+ 1671  docker run -d -p 6000:6000 -p 7000:7000  -it -v /home/liroding/workspace/git/DockerWeb-workflowdemo/:/opt/workflowdemo -v /home/liroding/workspace/git/DockerWeb-loonflowenergy/:/opt/loonflowenergy --name liro_workflow_v2 dingyinglai/workflow_imagebase:v2 /bin/bash
+ 1672  docker images 
+ 1673  docker ps -a
+ 1674  docker exec -it ddec8d6fdfed /bin/bash
+ 1675  top
+ 1676  ls
+ 1677  docker ps -a
+ 1678  docker images -a
+ 1679  docker rmi 9e749f9e46d5
+ 1680  docker ps -a
+ 1681  docker exec -it ddec8d6fdfed /bin/bash
+ 1682  docker ps -a
+ 1683  docker stop ddec8d6fdfed
+ 1684  docker rm ddec8d6fdfed
+ 1685  docker run -p 6000:6000 -it -v /home/liroding/workspace/git/DockerWeb-workflowdemo/:/opt/workflowdemo -v /home/liroding/workspace/git/DockerWeb-loonflowenergy/:/opt/loonflowenergy --name liro_workflow_v2 dingyinglai/workflow_imagebase:v2 /bin/bash
+ 1686  docker ps -a
+ 1687  docker stop f6f84f2e8a32
+ 1688  docker rm f6f84f2e8a32
+ 1689  docker run -d -p 9000:9000 -p 10000:10000  -it -v /home/liroding/workspace/git/DockerWeb-workflowdemo/:/opt/workflowdemo -v /home/liroding/workspace/git/DockerWeb-loonflowenergy/:/opt/loonflowenergy --name liro_workflow_v2 dingyinglai/workflow_imagebase:v2 /bin/bash
+ 1690  docker ps -
+ 1691  docker ps -a
+ 1692  docker exec -it 13a916d03078
+ 1693  docker exec -it 13a916d03078 /bin/bash
+ 1694  ls
+ 1695  cd workspace/
+ 1696  ls
+ 1697  cd git/
+ 1698  ls
+ 1699  cd DockerWeb-
+ 1700  cd DockerWeb-loonflowenergy/
+ 1701  ls
+ 1702  git clone https://github.com/blackholll/loonflow.git
+ 1703  ls
+ 1704  cd loonflow/
+ 1705  ls
+ 1706  git remote -v
+ 1707  git branch -a
+ 1708  git checkout remotes/origin/v1.0.15
+ 1709  ls
+ 1710  cd ..
+ 1711  ls
+ 1712  git status
+ 1713  cd ..
+ 1714  ls
+ 1715  cd DockerWeb-loonflowenergy/
+ 1716  ls
+ 1717  cd loonflow/
+ 1718  ls
+ 1719  cd templates/
+ 1720  ls
+ 1721  cd ..
+ 1722  ls
+ 1723  cd settings/
+ 1724  ls
+ 1725  cd ../
+ 1726  ls
+ 1727  cd templates/
+ 1728  ls
+ 1729  cd ..
+ 1730  ls
+ 1731  cd loonflow/
+ 1732  ls
+ 1733  vim wsgi.py 
+ 1734  ls
+ 1735  cd ../
+ 1736  ls
+ 1737  cd settings/
+ 1738  ls
+ 1739  cp pro.py.simple config.py
+ 1740  g config.py 
+ 1741  ls
+ 1742  vim __init__.py 
+ 1743  ls
+ 1744  cp ../../../DockerWeb-loonflowenergy/loonflow/loonflow/__init__.py ./
+ 1745  ls
+ 1746  vim __init__.py 
+ 1747  ls
+ 1748  cd ..
+ 1749  ls
+ 1750  git status 
+ 1751  cd -
+ 1752  ls
+ 1753  cd ..
+ 1754  ls
+ 1755  cd loonflow/
+ 1756  ls
+ 1757  vim wsgi.py 
+ 1758  ls
+ 1759  cp ../../../DockerWeb-mysite/mysite/mysite/wsgi.py wsgi.py_bk
+ 1760  ls
+ 1761  vim wsgi.py_bk 
+ 1762  ls
+ 1763  vim wsgi.py
+ 1764  ls
+ 1765  cp wsgi.py_bk wsgi.py
+ 1766  vim wsgi.py
+ 1767  ls
+ 1768  cd ../
+ 1769  ls
+ 1770  cd loonflow/
+ 1771  ls
+ 1772  rm wsgi.py_bk 
+ 1773  ls
+ 1774  cd ..
+ 1775  ls
+ 1776  cd loonflow/
+ 1777  ls
+ 1778  vim wsgi.py 
+ 1779  ls
+ 1780  cd ..
+ 1781  ls
+ 1782  docker ps -a
+ 1783  ls
+ 1784  cd ..
+ 1785  ls
+ 1786  cd ..
+ 1787  ls
+ 1788  cd DockerWeb-workflowdemo/
+ 1789  ls
+ 1790  cd workflowdemo/
+ 1791  ls
+ 1792  vim requirements.txt 
+ 1793  ls
+ 1794  cd ..
+ 1795  ls
+ 1796  cd ..
+ 1797  ls
+ 1798  cd DockerWeb-loonflowenergy/
+ 1799  ls
+ 1800  cd loonflow/
+ 1801  ls
+ 1802  vim requirements/
+ 1803  cd requirements/
+ 1804  ls
+ 1805  vim common.txt 
+ 1806  ls
+ 1807  vim pro.txt 
+ 1808  ls
+ 1809  docker ps -a
+ 1810  docker exec -it 13a916d03078 /bin/bash
+ 1811  docker ps -a
+ 1812  docker exec -it 13a916d03078 /bin/bash
+ 1813  docker ps -a
+ 1814  docker exec -it 13a916d03078 /bin/bash
+ 1815  docker ps -a
+ 1816  docker exec -it 13a916d03078 /bin/bash
+ 1817  docker ps -a
+ 1818  docker exec -it 13a916d03078 /bin/bash
+ 1819  docker ps -a
+ 1820  docker exec -it 13a916d03078 /bin/bash
+ 1821  docker ps -a
+ 1822  docker exec -it 13a916d03078 /bin/bash
+ 1823  docker ps -a
+ 1824  docker exec -it 13a916d03078 /bin/bash
+ 1825  ls
+ 1826  docker ps -a
+ 1827  docker start 3d324a92d4d2
+ 1828  docker stop 13a916d03078
+ 1829  docker start 3d324a92d4d2
+ 1830  docker exec -it 3d324a92d4d2 /bin/bash
+ 1831  ls
+ 1832  docker ps -a
+ 1833  docker stop 3d324a92d4d2
+ 1834  docker start 13a916d03078
+ 1835  docker exec -it 13a916d03078 /bin/bash
+ 1836  docker ps -a
+ 1837  docker exec -it 13a916d03078 /bin/bash
+ 1838  ls
+ 1839  docker ps -a
+ 1840  docker exec -it f0a397098858 /bin/bash
+ 1841  docker stop f0a397098858 
+ 1842  docker start f0a397098858 
+ 1843  docker exec -it f0a397098858 /bin/bash
+ 1844  docker ps -a
+ 1845  docker stop f0a397098858
+ 1846  docker exec -it 13a916d03078 /bin/bash
+ 1847  ls
+ 1848  cd workspace/
+ 1849  ls
+ 1850  cd git/
+ 1851  ls
+ 1852  cd DockerWeb-loonflowenergy
+ 1853  ls
+ 1854  cd loonflow/
+ 1855  ls
+ 1856  git status 
+ 1857  git diff loonflow/__init__.py
+ 1858  git diff loonflow/wsgi.py
+ 1859  ls
+ 1860  ll
+ 1861  vim manage.py 
+ 1862  ls
+ 1863  cd loonflow/
+ 1864  ls
+ 1865  vim wsgi.py 
+ 1866  ls
+ 1867  vim wsgi.py 
+ 1868  ls
+ 1869  vim settings.py 
+ 1870  ls
+ 1871  ll
+ 1872  vim wsgi.py 
+ 1873  ls
+ 1874  docker ps -a
+ 1875  docker exec -it 13a916d03078 /bin/bash
+ 1876  cd .../../
+ 1877  cd ../../
+ 1878  ls
+ 1879  docker ps -a
+ 1880  docker stop 13a916d03078
+ 1881  docker start 13a916d03078
+ 1882  docker exec -it 13a916d03078 /bin/bash
+ 1883  docker ps -a
+ 1884  docker exec -it 13a916d03078 /bin/bash
+ 1885  docker stop 13a916d03078
+ 1886  docker exec -it 13a916d03078 /bin/bash
+ 1887  docker start 13a916d03078
+ 1888  docker exec -it 13a916d03078 /bin/bash
+ 1889  docker ps -a
+ 1890  docker stop 13a916d03078 
+ 1891  docker start 13a916d03078 
+ 1892  docker exec -it 13a916d03078  /bin/bash
+ 1893  docker stop 13a916d03078 
+ 1894  docker start 13a916d03078 
+ 1895  docker exec -it 13a916d03078  /bin/bash
+ 1896  docker exec -it 13a916d03078 /bin/bash
+ 1897  ls
+ 1898  cd workspace/
+ 1899  ld
+ 1900  ls
+ 1901  cd git/
+ 1902  ls
+ 1903  cd DockerWeb-loonflowenergy/
+ 1904  ls
+ 1905  git status
+ 1906  git log
+ 1907  git push
+ 1908  ls
+ 1909  cd ..
+ 1910  ls
+ 1911  cd DockerWeb-workflowdemo/
+ 1912  ls
+ 1913  cd workflowdemo/
+ 1914  git status 
+ 1915  git add Apps/ 
+ 1916  ls
+ 1917  cd loonflow/
+ 1918  ls
+ 1919  cd ..
+ 1920  ls
+ 1921  rm liro.log 
+ 1922  rm loonflow -rf
+ 1923  ls
+ 1924  docker ps -a
+ 1925  docker exec -it 13a916d03078 /bin/bash
+ 1926  ls
+ 1927  cd ../../
+ 1928  ls
+ 1929  cd DockerWeb-workflowdemo/
+ 1930  git status
+ 1931  git push
+ 1932  ls
+ 1933  docker ps -a
+ 1934  docker stop 13a916d03078
+ 1935  docker start 13a916d03078
+ 1936  docker exec -it 13a916d03078 /bin/bash
+ 1937  ls
+ 1938  cd ../
+ 1939  ls
+ 1940  cd DockerWeb-
+ 1941  cd DockerWeb-workflowdemo/
+ 1942  ls
+ 1943  cd workflowdemo/
+ 1944  ls
+ 1945  cd workflow
+ 1946  ls
+ 1947  cd templates/
+ 1948  ls
+ 1949  cd workflow/
+ 1950  ls
+ 1951  vim ticketdetail.html 
+ 1952  docker ps -a
+ 1953  docker exec -it 13a916d03078 /bin/bash
+ 1954  docker ps -a
+ 1955  docker exec 13a916d03078 -it /bin/bash
+ 1956  docker exec -it 13a916d03078  /bin/bash
+ 1957  docker ps -a
+ 1958  docker exec -it 13a916d03078 /bin/bash
+ 1959  ls
+ 1960  cd workspace/
+ 1961  ls
+ 1962  cd git/
+ 1963  ls
+ 1964  cd DockerWeb-workflowdemo/
+ 1965  ls
+ 1966  cd workflowdemo/
+ 1967  ls
+ 1968  git status 
+ 1969  git log
+ 1970  git push
+ 1971  docker ps -a
+ 1972  docker rm 297e42e9cc5e
+ 1973  docker rm f0a397098858
+ 1974  ls
+ 1975  docker ps -a
+ 1976  docker exec -it 13a916d03078 /bin/bash
+ 1977  ls
+ 1978  cd workspace/
+ 1979  ls
+ 1980  cd git/
+ 1981  ls
+ 1982  cd DockerWeb-workflowdemo/
+ 1983  ls
+ 1984  cd workflowdemo/
+ 1985  ls
+ 1986  git status
+ 1987  git log
+ 1988  git push
+ 1989  ls
+ 1990  git log
+ 1991  git status
+ 1992  ls
+ 1993  clear
+ 1994  ls
+ 1995  git status 
+ 1996  ls
+ 1997  git status
+ 1998  docker ps -a
+ 1999  docker exec -it 13a916d03078 /bin/bash
+ 2000  docker ps -a
+ 2001  cd ../
+ 2002  ls
+ 2003  cd /opt/
+ 2004  ls
+ 2005  cd ~
+ 2006  ls
+ 2007  cd workspace/
+ 2008  ls
+ 2009  cd git/
+ 2010  ls
+ 2011  cd DockerWeb-workflowdemo/
+ 2012  ls
+ 2013  cd workflowdemo/
+ 2014  ls
+ 2015  cd adminlte/
+ 2016  ls
+ 2017  cd templates/
+ 2018  ls
+ 2019  cd adminlte/
+ 2020  ls
+ 2021  vim base.html 
+ 2022  ls
+ 2023  vim nav-left.html 
+ 2024  ls
+ 2025  cd ../../
+ 2026  ls
+ 2027  cd ..
+ 2028  ls
+ 2029  cd workflow
+ 2030  ls
+ 2031  cd templates/
+ 2032  ls
+ 2033  cd workflow/
+ 2034  ls
+ 2035  vim ticketdetail.html
+ 2036  ls
+ 2037  vim index.html 
+ 2038  ls
+ 2039  cd ..
+ 2040  cd ../
+ 2041  ls
+ 2042  cd ..
+ 2043  ls
+ 2044  find ./* |grep -rn 'user3-128x128.jpg'
+ 2045  find ./* |grep -rn 'user3-128x128.jpg' > 1111111.log
+ 2046  ls
+ 2047  cd adminlte/
+ 2048  ls
+ 2049  cd templates/
+ 2050  ls
+ 2051  cd adminlte/
+ 2052  ls
+ 2053  vim nav-right.html 
+ 2054  ls
+ 2055  cp nav-right.html  nav-right.html_bk
+ 2056  ls
+ 2057  vim nav-right.html
+ 2058  docker exec -it 13a916d03078 /bin/bash
+ 2059  ls
+ 2060  docker ps -a
+ 2061  docker rm 3d324a92d4d2
+ 2062  docker rm 748c50d9e25b
+ 2063  docker ps -a
+ 2064  docker images 
+ 2065  docker rm 9e749f9e46d5 
+ 2066  docker rmi 9e749f9e46d5 
+ 2067  docker ps -a
+ 2068  docker images 
+ 2069  docker rm cdaa8b0636fe
+ 2070  docker rmi cdaa8b0636fe
+ 2071  docker rmi 692973ebce83 5afa7867ee52 7eaebe01d63b
+ 2072  docker images -a
+ 2073  docker rmi 7eaebe01d63b
+ 2074  docker ps -a
+ 2075  docker images 
+ 2076  history
+ 2077  history > 11.log
