@@ -94,7 +94,7 @@ class LoginHandleClass():
 
 
 
-    def admin(request):
+    def index(request):
            return render(request,'login.html',{"username":"liroding"})
 
     def signin(request):

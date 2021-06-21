@@ -4,7 +4,7 @@ from LoginApp.Login import LoginHandleClass
 
 urlpatterns =[
       # request html page
-      path('admin',LoginHandleClass.admin),
+      path('index',LoginHandleClass.index),
       path('signin',LoginHandleClass.signin),
       path('register',LoginHandleClass.register),
 
