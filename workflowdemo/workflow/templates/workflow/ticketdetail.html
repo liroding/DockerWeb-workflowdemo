@@ -50,6 +50,8 @@
                     }
             }
     });
+    //add by liro
+   
     function submitsuggestion(transition_id,field_require_check){
         var comment = $("#comment").val();
 		
@@ -172,7 +174,10 @@
                                 html += '<th>'+ data.data.value.field_list[i].field_name + '</th><td>' + data.data.value.field_list[i].field_value + '</td>';
 
                             }else {
-                                 html += '<th>'+ data.data.value.field_list[i].field_name + '</th><td><input type="text" value=' + data.data.value.field_list[i].field_value + ' id=' + data.data.value.field_list[i].field_name +'></td>';
+                                 var str = data.data.value.field_list[i].field_value;
+				 var Newstr = str.replace(/<[^>]*>/g,"")
+                                 html +='<th>'+ data.data.value.field_list[i].field_name + '</th><td><textarea cols="60" rows="3"  id='+data.data.value.field_list[i].field_name +'>' + Newstr  + '</textarea>'+ '</td>';
+
                                  array_name.push(data.data.value.field_list[i].field_name);
 								 array_key.push(data.data.value.field_list[i].field_key);
 							}
