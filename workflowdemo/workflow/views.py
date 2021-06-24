@@ -19,7 +19,6 @@ from django.contrib.auth.decorators import login_required
 
 class Index(LoginRequiredMixin, TemplateView):
     template_name = 'workflow/index.html'
-    print("p1")
     def get_context_data(self, **kwargs):
         context = super(Index, self).get_context_data(**kwargs)
         #context['workflows'] = Workflow.objects.all()
@@ -36,6 +35,7 @@ class TicketDetail(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(TicketDetail, self).get_context_data(**kwargs)
+        print("liro-debug p1",context)
         context['ticket_id'] = kwargs.get('ticket_id')
         return context
 
@@ -226,7 +226,6 @@ class TicketCreate(LoginRequiredMixin, FormView):
             for key, value in form_data.items():
                 if isinstance(value, datetime.datetime):
                     form_data[key] = form.data[key]
-
             #for test only
             ins = WorkFlowAPiRequest(username=self.request.user.username)
             status,state_result = ins.getdata(data=form_data,method='post',url='/api/v1.0/tickets')
@@ -359,6 +358,7 @@ class TicketDetailApi(LoginRequiredMixin,View):
 
         ins = WorkFlowAPiRequest(username=self.request.user.username)
         status,state_result = ins.getdata(parameters={},method='get',url='/api/v1.0/tickets/{0}'.format(self.kwargs.get('ticket_id')))
+        print("[liro-debug] p3",state_result)
         return JsonResponse(data=state_result)
 
     def patch(self,request,*args,**kwargs):
@@ -424,3 +424,23 @@ class GetUserName(LoginRequiredMixin,View):
         except:
             data = None
         return JsonResponse(data={'username':data})
+#add by liro
+class TicketFieldList(LoginRequiredMixin,View):
+    def get(self, request, *args, **kwargs):
+        """
+        获取工单所有字段信息
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        request_data = request.GET
+        ticket_id = kwargs.get('ticket_id')
+        username = request_data.get(
+            'username', request.user.username)  # 可用于权限控制
+        ins = WorkFlowAPiRequest(username=self.request.user.username)
+        status,basefieldlist_result = ins.getdata(parameters={},method='get',url='/api/v1.0/tickets/{0}/fieldlist'.format(self.kwargs.get('ticket_id')))
+        print(basefieldlist_result)
+        print('d1')
+        return JsonResponse({'value':basefieldlist_result})
+#add by liro

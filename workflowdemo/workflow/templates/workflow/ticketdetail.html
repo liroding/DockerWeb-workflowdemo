@@ -50,7 +50,6 @@
                     }
             }
     });
-    //add by liro
    
     function submitsuggestion(transition_id,field_require_check){
         var comment = $("#comment").val();
@@ -94,6 +93,45 @@
             }
         });
     }
+    //add by liro
+    function viewfieldlist(){
+        $.ajax({
+            url: '{% url 'ticketfieldlist' ticket_id%}',
+            type: 'GET',
+            data: {'username':'{{request.user.username}}'},
+            success: function(data, textStatus, jqXHR) {
+		
+                if (data.value.code == 0){
+                        var html = '';
+                        var num = 0;
+                        window.param = new Array();      
+                        for (var i = 0; i < data.value.data.length; i++) {
+                            param.push(data.value.data[i].field_name);
+                            num += 1;
+	        	    {
+
+                                 var str = data.value.data[i].field_value;
+				 var Newstr = str.replace(/<[^>]*>/g,"")
+                                 html +='<th>'+ data.value.data[i].field_name + '</th><td><textarea cols="58" rows="3" readonly="readonly"  id='+data.value.data[i].field_name +'>' + Newstr  + '</textarea>'+ '</td>';
+
+                                 array_name.push(data.value.data[i].field_name);
+	        		 array_key.push(data.value.data[i].field_key);
+	        	    }
+	        	    if (num == 2){
+                                num = 0
+                                html = '<tr>' + html + '</tr>';
+                            }	
+	        	}
+	  	}
+                $('#ticketfieldlist').append(html);
+            },
+
+            error: function(data, textStatus, jqXHR) {
+                toastr['error'](data);
+            }
+        });
+
+    }
 
     $(function () {
         $('#sample_3').DataTable({
@@ -122,6 +160,10 @@
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         };
+
+
+
+
         $.ajax({
             url: '{% url 'ticketflowsteps' ticket_id%}',
             type: 'GET',
@@ -159,7 +201,8 @@
                     if (data.code == 0){
                         var html = '';
                         var num = 0;
-                         window.param = new Array();      
+                        window.param = new Array(); 
+		        if(data.data.value.field_list.length!=0){
                         for (var i = 0; i < data.data.value.field_list.length; i++) {
                              param.push(data.data.value.field_list[i].field_name);
                             num += 1;
@@ -179,8 +222,8 @@
                                  html +='<th>'+ data.data.value.field_list[i].field_name + '</th><td><textarea cols="60" rows="3"  id='+data.data.value.field_list[i].field_name +'>' + Newstr  + '</textarea>'+ '</td>';
 
                                  array_name.push(data.data.value.field_list[i].field_name);
-								 array_key.push(data.data.value.field_list[i].field_key);
-							}
+				 array_key.push(data.data.value.field_list[i].field_key);
+			    }
                             if (num == 2){
                                 num = 0
                                 html = '<tr>' + html + '</tr>';
@@ -211,6 +254,10 @@
                                     toastr['error'](data);
                                 }
                             });
+                        }
+			else{
+    				viewfieldlist();
+			}
                     }else{
                         toastr['warning'](data.msg);
                     }
@@ -303,6 +350,11 @@
         <div class="col-md-12">
             <table class="table table-bordered tb-detail wf-act-history">
               <tbody id="ticketdetail">
+            </tbody></table>
+        </div>
+        <div class="col-md-12">
+            <table class="table table-bordered tb-detail wf-act-history">
+              <tbody id="ticketfieldlist">
             </tbody></table>
         </div>
     </div>
