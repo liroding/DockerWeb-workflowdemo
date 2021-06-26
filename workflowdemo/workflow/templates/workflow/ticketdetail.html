@@ -114,16 +114,22 @@
                             //field type id equal to 60 bug need to be fixed
                             if ( data.value.data[i].field_type_id == 35 || data.value.data[i].field_type_id == 45 ){
                                 console.log(data.value)
-                                html += '<th>'+ data.value.data[i].field_name + '</th><td>' + data.value.data[i].field_choice[data.value.data[i].field_value] + '</td>';
+                                html += '<th>'+ data.value.data[i].field_name + '</th><td><textarea cols="58" rows="3" readonly="readonly"  id='+data.value.data[i].field_name +'>'  + data.value.data[i].field_choice[data.value.data[i].field_value] + '</textarea>' + '</td>';
                           
                            }else if ( data.value.data[i].field_attribute == 1 ){
+                                 var str = data.value.data[i].field_value;
+				 if(data.value.data[i].field_type_id == 55){
+				      var Newstr = str.replace(/<[^>]*>/g,"");
+				 }else{
+				      var Newstr = str;
+				 }
                                 console.log(data.value)
-                                html += '<th>'+ data.value.data[i].field_name + '</th><td>' + data.value.data[i].field_value + '</td>';
+                                html += '<th>'+ data.value.data[i].field_name + '</th><td><textarea cols="58" rows="3" readonly="readonly"  id='+data.value.data[i].field_name +'>'  + Newstr + '</textarea>'+'</td>';
 
                             }else {
                                  var str = data.value.data[i].field_value;
 				 if(data.value.data[i].field_type_id == 55){
-				      var Newstr = str.replace(/<[^>]*>/g,"")
+				      var Newstr = str.replace(/<[^>]*>/g,"");
 				 }else{
 				      var Newstr = str;
 				 }
@@ -136,6 +142,7 @@
                                 num = 0
                                 html = '<tr>' + html + '</tr>';
                             }	
+  				 alert('hao');
 	        	}
 	  	}
                 $('#ticketfieldlist').append(html);
