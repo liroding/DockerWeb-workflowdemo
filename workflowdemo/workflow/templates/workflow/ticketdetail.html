@@ -95,12 +95,14 @@
     }
     //add by liro
     function viewfieldlist(){
+	alert('enter viewfieldlist');
         $.ajax({
             url: '{% url 'ticketfieldlist' ticket_id%}',
             type: 'GET',
             data: {'username':'{{request.user.username}}'},
             success: function(data, textStatus, jqXHR) {
-		
+	        alert(data.value.code);	
+	        alert(data.value.data.length);	
                 if (data.value.code == 0){
                         var html = '';
                         var num = 0;
@@ -108,10 +110,23 @@
                         for (var i = 0; i < data.value.data.length; i++) {
                             param.push(data.value.data[i].field_name);
                             num += 1;
-	        	    {
+                            //处理select checkbox等数据显示
+                            //field type id equal to 60 bug need to be fixed
+                            if ( data.value.data[i].field_type_id == 35 || data.value.data[i].field_type_id == 45 ){
+                                console.log(data.value)
+                                html += '<th>'+ data.value.data[i].field_name + '</th><td>' + data.value.data[i].field_choice[data.value.data[i].field_value] + '</td>';
+                          
+                           }else if ( data.value.data[i].field_attribute == 1 ){
+                                console.log(data.value)
+                                html += '<th>'+ data.value.data[i].field_name + '</th><td>' + data.value.data[i].field_value + '</td>';
 
+                            }else {
                                  var str = data.value.data[i].field_value;
-				 var Newstr = str.replace(/<[^>]*>/g,"")
+				 if(data.value.data[i].field_type_id == 55){
+				      var Newstr = str.replace(/<[^>]*>/g,"")
+				 }else{
+				      var Newstr = str;
+				 }
                                  html +='<th>'+ data.value.data[i].field_name + '</th><td><textarea cols="58" rows="3" readonly="readonly"  id='+data.value.data[i].field_name +'>' + Newstr  + '</textarea>'+ '</td>';
 
                                  array_name.push(data.value.data[i].field_name);
@@ -218,7 +233,11 @@
 
                             }else {
                                  var str = data.data.value.field_list[i].field_value;
-				 var Newstr = str.replace(/<[^>]*>/g,"")
+				 if(data.data.value.field_list[i].field_type_id == 55){
+				      var Newstr = str.replace(/<[^>]*>/g,"")
+				 }else{
+				      var Newstr = str;
+				 }
                                  html +='<th>'+ data.data.value.field_list[i].field_name + '</th><td><textarea cols="60" rows="3"  id='+data.data.value.field_list[i].field_name +'>' + Newstr  + '</textarea>'+ '</td>';
 
                                  array_name.push(data.data.value.field_list[i].field_name);

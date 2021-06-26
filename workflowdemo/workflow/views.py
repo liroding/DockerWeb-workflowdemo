@@ -16,6 +16,9 @@ from workflow.apirequest import WorkFlowAPiRequest
 from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
+import logging
+
+logger = logging.getLogger('django')
 
 class Index(LoginRequiredMixin, TemplateView):
     template_name = 'workflow/index.html'
@@ -440,7 +443,11 @@ class TicketFieldList(LoginRequiredMixin,View):
             'username', request.user.username)  # 可用于权限控制
         ins = WorkFlowAPiRequest(username=self.request.user.username)
         status,basefieldlist_result = ins.getdata(parameters={},method='get',url='/api/v1.0/tickets/{0}/fieldlist'.format(self.kwargs.get('ticket_id')))
-        print(basefieldlist_result)
+#        logger.info('d1')
+#        logger.info(basefieldlist_result)
+#        logger.info('d2')
         print('d1')
+        print(basefieldlist_result)
+        print('d2')
         return JsonResponse({'value':basefieldlist_result})
 #add by liro
