@@ -95,14 +95,14 @@
     }
     //add by liro
     function viewfieldlist(){
-	alert('enter viewfieldlist');
+	//alert('enter viewfieldlist');
         $.ajax({
             url: '{% url 'ticketfieldlist' ticket_id%}',
             type: 'GET',
             data: {'username':'{{request.user.username}}'},
             success: function(data, textStatus, jqXHR) {
-	        alert(data.value.code);	
-	        alert(data.value.data.length);	
+	     //   alert(data.value.code);	
+	     //   alert(data.value.data.length);	
                 if (data.value.code == 0){
                         var html = '';
                         var num = 0;
@@ -142,7 +142,6 @@
                                 num = 0
                                 html = '<tr>' + html + '</tr>';
                             }	
-  				 alert('hao');
 	        	}
 	  	}
                 $('#ticketfieldlist').append(html);
