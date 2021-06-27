@@ -31,24 +31,45 @@
     <![endif]-->
     <title>注册</title>
 </head>
-<body>
+
+<style type="text/css">
+.bg{
+	background:url(../../static/img/background_register.jpg);
+        background-repeat: no-repeat center center;
+	background-size:cover;
+}
+
+.center-in-center{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+}
+</style>
+
+
+<body class="bg">
 <!--表单域，action用于将获取的到信息提交到后台地址-->
 <div class="container">
 <form target="form" class="form-signin" action="save" method="post">
     <span>
-        用户:<input type="text" placeholder="输入用户" name="username">
+        用户:<input class="form-control" type="text" placeholder="输入用户" name="username">
     </span>
     <br>
     <span>
-        密码:<input type="password" placeholder="输入密码" name="password">
+        密码:<input class="form-control" type="password" placeholder="输入密码" name="password">
     </span>
     <br>
     <span>
-        邮箱:<input type="text" placeholder="选填" name="mail">
+        邮箱:<input class="form-control" type="text" placeholder="选填" name="mail">
     </span>
     <br>
     <span>
-        <input type="submit" name="submit1" value="注册">
+        <button type="submit" class="btn btn-success" name="submit1">注册</button>
     </span>
 
 </form>

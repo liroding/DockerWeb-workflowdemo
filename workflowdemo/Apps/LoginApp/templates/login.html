@@ -28,12 +28,30 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
 </head>
-<body>
 
-	<p style="text-align: center"><a class="btn btn-lg " href="../accounts/login" target="_self"><button>登陆</button></a></p>
-	<p style="text-align: center"><a class="btn btn-lg " href="register" target="_self"><button>注册</button></a></p>
+<style type="text/css">
+.bg{
+	background:url(../../static/img/background.jpg);
+        background-repeat: no-repeat center center;
+	background-size:cover;
+}
 
+.center-in-center{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+}
+</style>
+<body class="bg">
+   <div class="center-in-center" >
+	<p style="text-align: center"><a class="btn btn-lg " href="../accounts/login" target="_self"><button class="btn btn-warning"  >登陆</button></a></p>
+	<p style="text-align: center"><a class="btn btn-lg " href="register" target="_self"><button class="btn btn-success" >注册</button></a></p>
+   </div>
 </body>
 </html>
