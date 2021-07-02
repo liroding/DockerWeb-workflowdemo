@@ -53,7 +53,7 @@ class LoginHandleClass():
                  print("[serverlog] MailAddr: " + mailstr)
             if mail_is_null == 1:
                  #add by liro 2020/11/13
-                 Instance = MailHandleClass("原生态实验室注册成功通知","欢迎您的到来,希望您使用愉快~ "+"\r\n用户:" + user + "\r\n密码：" + password,"11","34",mailstr)
+                 Instance = MailHandleClass("原生态实验室-工单系统注册成功通知","欢迎您的到来,希望您使用愉快~ "+"\r\n用户: " + user + "\r\n密码：" + password,"11","34",mailstr)
                  Instance.AutoSendMail()
             ############################################
             #storage to Django db
@@ -143,7 +143,7 @@ class MailNotifyClass():
                 print("[serverlog] MailAddr: " + mailstr)
                 if len(mailstr) > 0:
                     print('p4')
-                    Instance = MailHandleClass(title,"您有一个工单待处理，请查看工单系统"+"\r\n网址:" + "http://10.32.64.101:9000" + "\r\n上一状态:" + statename +"\r\n表单创建者:"+ creator +"\r\n" + content,"xx","xx",mailstr)
+                    Instance = MailHandleClass(title,"您有一个工单待处理，请查看工单系统"+"\r\n网址: " + "http://10.32.64.101:9000" + "\r\n上一状态:" + statename +"\r\n表单创建者:"+ creator +"\r\n" + content,"xx","xx",mailstr)
                     print('p5')
                     Instance.AutoSendMail()
                 else:
