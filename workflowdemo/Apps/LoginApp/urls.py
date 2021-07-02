@@ -1,5 +1,5 @@
 from django.urls import path
-from LoginApp.Login import LoginHandleClass
+from LoginApp.Login import LoginHandleClass,MailNotifyClass
 
 
 urlpatterns =[
@@ -11,5 +11,8 @@ urlpatterns =[
       # request handle function
       path('query',LoginHandleClass.db_query),
       path('save',LoginHandleClass.db_save),
+      
+      #send Email 
+      path('sendmail',MailNotifyClass.notify),
 ]
  

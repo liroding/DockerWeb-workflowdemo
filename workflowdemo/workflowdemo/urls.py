@@ -30,6 +30,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', Index.as_view(),name='index'),
     path('login/',include('LoginApp.urls')),
+    path('notify/',include('LoginApp.urls')),
 ]
 
 if settings.DEBUG:

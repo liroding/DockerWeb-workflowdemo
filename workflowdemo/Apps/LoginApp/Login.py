@@ -1,15 +1,20 @@
 from django.contrib import admin
-from . models import LoginDB
+from .models import LoginDB
 import builtins
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render,render_to_response
 from django.template.context import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
+from .AutoSendMail import MailHandleClass 
+
+import json
 #包装csrd 请求，避免django分为其实跨站攻击脚本
 #from django.views.decorators.csrf import csrf_exempt
 #from django.template.context_processors import csrf
 # Register your models here.
+
 
 
 class LoginHandleClass():
@@ -102,5 +107,54 @@ class LoginHandleClass():
 
     def register(request):
             return render(request,'register.html',{"username":"liroding"})
+
+
+class MailNotifyClass():
+    def notify(request):
+        print('enter notify')
+        #title = request.POST['title_result']
+        #content = request.POST['content_result']
+        #body = request.GET.get('title_result','11')
+        #print(body)
+        #body = request.POST.get('title_result','11')
+        #print(body)
+        body = request.body
+        strdata = str(body,'utf-8')
+        jsondata = json.loads(strdata)
+        print(jsondata)
+        title = jsondata['title_result']
+        content = jsondata['content_result']
+        statename = jsondata['last_flow_log']['state']['state_name']
+        print('p1')
+        creator = jsondata['ticket_value_info']['creator']
+        print('p2')
+        print(statename)
+        to_user = jsondata['ticket_value_info']['to_user']
+        print(to_user)
+        #Search email address from mysql db 
+        all_data = LoginDB.objects.all() 
+        i = 0
+        while i < len(all_data):
+            print(all_data[i].user)
+            if to_user in all_data[i].user:
+          
+                print('p3')
+                mailstr = all_data[i].mail
+                print("[serverlog] MailAddr: " + mailstr)
+                if len(mailstr) > 0:
+                    print('p4')
+                    Instance = MailHandleClass(title,"您有一个工单待处理，请查看工单系统"+"\r\n网址:" + "http://10.32.64.101:9000" + "\r\n上一状态:" + statename +"\r\n表单创建者:"+ creator +"\r\n" + content,"xx","xx",mailstr)
+                    print('p5')
+                    Instance.AutoSendMail()
+                else:
+                    print("mail address is null")
+            i +=1
+        
+        print('end notify')
+
+
+
+
+
 
 
