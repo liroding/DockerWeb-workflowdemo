@@ -5,7 +5,7 @@ import xadmin
 class LoginDB(models.Model):
     user = models.CharField(max_length = 20)
     password = models.CharField(max_length = 20)
-    mail = models.CharField(max_length = 20 ,default="")
+    mail = models.CharField(max_length = 50 ,default="")
     profilesetting = models.CharField(max_length = 8 ,default="0")
 
     def __str__(self):

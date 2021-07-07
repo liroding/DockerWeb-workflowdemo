@@ -125,26 +125,27 @@ class MailNotifyClass():
         title = jsondata['title_result']
         content = jsondata['content_result']
         statename = jsondata['last_flow_log']['state']['state_name']
-        print('p1')
         creator = jsondata['ticket_value_info']['creator']
-        print('p2')
-        print(statename)
         to_user = jsondata['ticket_value_info']['to_user']
-        print(to_user)
+        act_state_id = jsondata['ticket_value_info']['act_state_id']
+        print(act_state_id)
         #Search email address from mysql db 
         all_data = LoginDB.objects.all() 
         i = 0
+         
         while i < len(all_data):
-            print(all_data[i].user)
-            if to_user in all_data[i].user:
-          
-                print('p3')
+            if act_state_id == 1:
+               mail_user = to_user
+               mail_info = "您有一个工单待处理，请查看工单系统"+"\r\n网址: " 
+            if act_state_id == 4:
+               mail_user = creator
+               mail_info = "您创建的工单处理结束，请查看工单系统"+"\r\n网址: " 
+            print('mail_user=',mail_user) 
+            if mail_user in all_data[i].user:
                 mailstr = all_data[i].mail
                 print("[serverlog] MailAddr: " + mailstr)
                 if len(mailstr) > 0:
-                    print('p4')
-                    Instance = MailHandleClass(title,"您有一个工单待处理，请查看工单系统"+"\r\n网址: " + "http://10.32.64.101:9000" + "\r\n上一状态:" + statename +"\r\n表单创建者:"+ creator +"\r\n" + content,"xx","xx",mailstr)
-                    print('p5')
+                    Instance = MailHandleClass(title,mail_info + "http://10.32.64.101:9000" + "\r\n上一状态:" + statename +"\r\n表单创建者:"+ creator +"\r\n" + content,"xx","xx",mailstr)
                     Instance.AutoSendMail()
                 else:
                     print("mail address is null")
