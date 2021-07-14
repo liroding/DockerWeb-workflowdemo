@@ -29,10 +29,10 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   {% block nav-right %}
-{% include 'adminlte/nav-right.html'%}
+     {% include 'adminlte/nav-right.html'%}
   {% endblock %}
   {% block nav-left %}
-{% include 'adminlte/nav-left.html'%}
+     {% include 'adminlte/nav-left.html'%}
   {% endblock %}
 
   <!-- Content Wrapper. Contains page content -->
@@ -76,6 +76,7 @@
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
+
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
@@ -86,5 +87,28 @@
 <script src="{% static 'AdminLTE/dist/js/adminlte.min.js' %}"></script>
 {% block js %}
 {% endblock %}
+
+<script>
+//此处加入的function 是为了满足左导航点击保持选中状态而加的
+$(function(){
+        $('.sidebar-menu li:not(.treeview) > a').on('click', function(){
+            console.log(this.href);
+            var $parent = $(this).parent().addClass('active');
+            $parent.siblings('.treeview.active').find('> a').trigger('click');
+            $parent.siblings().removeClass('active').find('li').removeClass('active');
+        });
+        $('.sidebar-menu a').each(function(){
+            if(this.href === window.location.href){
+                $(this).parent().addClass('active')
+                        .closest('.treeview-menu').addClass('.menu-open')
+                        .closest('.treeview').addClass('active');
+            }
+        });
+
+
+    });
+</script>
+
+
 </body>
 </html>
