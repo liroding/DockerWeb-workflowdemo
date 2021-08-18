@@ -32,8 +32,8 @@
                 <a href="#">
                     <i class="fa fa-share"></i> <span>工单系统</span>
                     <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+        	      <i class="fa fa-angle-left pull-right"></i>
+	            </span>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{% url 'workflow-index' %}"><i class="fa fa-circle-o"></i>新建工单</a></li>
@@ -43,7 +43,24 @@
                     <li><a href="{% url 'ticket-all' %}"><i class="fa fa-circle-o"></i>所有工单</a></li>
                 </ul>
             </li>
+
+            <li class="treeview active">
+                <a href="#">
+                    <i class="fa fa-share"></i> <span>下载</span>
+                    <span class="pull-right-container">
+        	      <i class="fa fa-angle-left pull-right"></i>
+	            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'ticket-download' %}"><i class="fa fa-circle-o"></i>工单</a></li>
+                </ul>
+            </li>
+
+
         </ul>
+
+
+
     </section>
     <!-- /.sidebar -->
 </aside>

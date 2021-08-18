@@ -17,6 +17,11 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
 import logging
+import json
+import csv
+import os,sys 
+import re
+from django.shortcuts import render,render_to_response
 
 logger = logging.getLogger('django')
 
@@ -31,7 +36,6 @@ class Index(LoginRequiredMixin, TemplateView):
             context['workflows'] = data['data']['value']
         print("p2")
         return context
-
 
 class TicketDetail(LoginRequiredMixin, TemplateView):
     template_name = 'workflow/ticketdetail.html'
@@ -446,8 +450,67 @@ class TicketFieldList(LoginRequiredMixin,View):
 #        logger.info('d1')
 #        logger.info(basefieldlist_result)
 #        logger.info('d2')
-        print('d1')
         print(basefieldlist_result)
-        print('d2')
         return JsonResponse({'value':basefieldlist_result})
 #add by liro
+class TicketDownload(LoginRequiredMixin, TemplateView):
+    template_name = 'workflow/ticketdownload.html'
+    def get_context_data(self, **kwargs):
+        context = super(TicketDownload, self).get_context_data(**kwargs)
+        #context['workflows'] = Workflow.objects.all()
+        ins = WorkFlowAPiRequest(username=self.request.user.username)
+        status,data = ins.getdata(dict(per_page=20, name=''),method='get',url='/api/v1.0/workflows')
+        if status:
+            context['workflows'] = data['data']['value']
+        return context
+
+class DownloadTicketData(LoginRequiredMixin, TemplateView):
+    #将handledata(为Dict数据格式) 数据剥掉,获取自己想要的数据然后封装
+    #template_name = 'workflow/test.html'
+    def get(self, request, *args, **kwargs):
+
+        request_data = request.GET
+        workflow_id = kwargs.get('workflow_id')
+        
+        username = request_data.get('username', request.user.username)  # 可用于权限控制
+        ins = WorkFlowAPiRequest(username=self.request.user.username)
+        #获取workflowid 对应的ticketid 的全部数据，最后输出excel文件
+        status,workflowid_ticketid_result = ins.getdata(parameters={},method='get',url='/api/v1.0/workflows/{0}/download'.format(self.kwargs.get('workflow_id')))
+#        logger.info('d1')
+        #print(workflowid_ticketid_result)
+        data = self.getmykeydata(workflowid_ticketid_result)
+        toexceldata = self.perfectdataformat(data)
+        return render(request,'workflow/mydownload.html',{'data':json.dumps(toexceldata)})
+ 
+    def getmykeydata(self,handledata):
+        _dellistkey = ['field_key','label','order_id','description','field_attribute','boolean_field_display','default_value','field_template']
+        _dictdata = handledata
+        _listdata = _dictdata['data']
+        _targetdata = []
+        for i in range(len(_listdata)):
+           #筛选需要的key value 然后存放在_targetdata 中
+           for j in range(len(_listdata[i])):
+              for key in _dellistkey:
+                 del _listdata[i][j][key] 
+                 #print( _listdata[i][j])
+           _targetdata.append(_listdata[i])
+        return _listdata 
+      
+    def perfectdataformat(self,handledata):
+        _listdata = []
+        _data = handledata
+        #print(_data)
+        for i in range(len(_data)):
+           _dictdata = {}
+           for j in range(len(_data[i])):  #此处_data[i] 仍为list,内部是多个dict
+               #field_type_id==45 属于select item,需要转换
+               if _data[i][j]['field_type_id'] == 45:
+                  fieldvalue = _data[i][j]['field_value']
+                  _dictdata[_data[i][j]['field_name']] =  _data[i][j]['field_choice'][fieldvalue]
+               else:
+               #_data[i][j] 是一个dict 结构，内部有多个key:value
+                  #value = (_data[i][j]['field_value']).decode(encoding='UTF-8')
+                  #_dictdata[key] = value 
+                  _dictdata[_data[i][j]['field_name']] =  _data[i][j]['field_value']
+           _listdata.append(_dictdata)
+        return _listdata
