@@ -260,14 +260,14 @@ class MyTicket(LoginRequiredMixin, TemplateView):
         page = int(request_data.get('page', 1))
         # 待办,关联的,创建
         ins = WorkFlowAPiRequest(username=self.request.user.username)
-        status,state_result = ins.getdata(parameters=dict(category='owner'),method='get',url='/api/v1.0/tickets')
+        status,state_result = ins.getdata(parameters=dict(category='owner',per_page=100),method='get',url='/api/v1.0/tickets')
         if status:
             if len(state_result) > 0 and isinstance(state_result,dict) and 'data' in state_result.keys() and 'value' in state_result['data'].keys():
                 context['ticket_result_restful_list'] = state_result['data']['value']
         context['msg'] = state_result['msg']
         return context
 
-
+#设置一页获取100笔ticket 记录
 class MyToDoTicket(LoginRequiredMixin, TemplateView):
     template_name = 'workflow/mytodo.html'
 
@@ -286,7 +286,7 @@ class MyToDoTicket(LoginRequiredMixin, TemplateView):
         # 待办,关联的,创建
         category = request_data.get('category')
         ins = WorkFlowAPiRequest(username=self.request.user.username)
-        status,state_result = ins.getdata(parameters=dict(category='duty'),method='get',url='/api/v1.0/tickets')
+        status,state_result = ins.getdata(parameters=dict(category='duty',per_page=100),method='get',url='/api/v1.0/tickets')
         if status:
             if len(state_result) > 0 and isinstance(state_result,dict) and 'data' in state_result.keys() and isinstance(state_result['data'],dict) and 'value' in state_result['data'].keys():
                 context['ticket_result_restful_list'] = state_result['data']['value']
@@ -312,7 +312,7 @@ class MyRelatedTicket(LoginRequiredMixin, TemplateView):
         # 待办,关联的,创建
         category = request_data.get('category')
         ins = WorkFlowAPiRequest(username=self.request.user.username)
-        status,state_result = ins.getdata(parameters=dict(category='relation'),method='get',url='/api/v1.0/tickets')
+        status,state_result = ins.getdata(parameters=dict(category='relation',per_page=100),method='get',url='/api/v1.0/tickets')
         if status:
             if len(state_result) > 0 and isinstance(state_result,dict) and 'data' in state_result.keys() and 'value' in state_result['data'].keys():
                 context['ticket_result_restful_list'] = state_result['data']['value']
@@ -514,3 +514,34 @@ class DownloadTicketData(LoginRequiredMixin, TemplateView):
                   _dictdata[_data[i][j]['field_name']] =  _data[i][j]['field_value']
            _listdata.append(_dictdata)
         return _listdata
+#-------------------------------------------------------------------#
+class MyAllTicket(LoginRequiredMixin, TemplateView):
+    template_name = 'workflow/allticket.html'
+    def get(self, request, *args, **kwargs):
+        request_data = request.GET
+        _workflow_ids = request_data.get('workflow_ids', '')
+        _search_value = request_data.get('search_value')
+        _per_page = int(request_data.get('per_page'))
+        _page = int(request_data.get('page'))
+        _category = request_data.get('category')
+        _from_admin = request_data.get('from_admin')
+        _title = request_data.get('title')
+        _create_start = request_data.get('create_start')
+        _create_end = request_data.get('create_end')
+        _pardata = dict(category=_category,per_page=_per_page,page=_page,workflow_ids=_workflow_ids,\
+                        search_value = _search_value,from_admin = _from_admin,title = _title,\
+                        create_start = _create_start,create_end = _create_end)
+        ins = WorkFlowAPiRequest(username=self.request.user.username)
+        status,state_result = ins.getdata(parameters=_pardata,method='get',url='/api/v1.0/tickets')
+        print(state_result['data']['value'])
+        return JsonResponse({'value':state_result})
+
+#获取用户有权限管理的工作流列表
+class MyUserAdminWorkflows(LoginRequiredMixin, TemplateView):
+    template_name = 'workflow/allticket.html'
+
+    def get(self, request, *args, **kwargs):
+        ins = WorkFlowAPiRequest(username=self.request.user.username)
+        status,state_result = ins.getdata(parameters={},method='get',url='/api/v1.0/workflows/user_admin')
+        print(state_result)
+        return JsonResponse({'value':state_result})
