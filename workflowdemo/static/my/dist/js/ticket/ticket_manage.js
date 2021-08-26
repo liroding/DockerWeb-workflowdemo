@@ -1,6 +1,6 @@
 $('#search_workflow').select2({placeholderOption: "first", allowClear:true});
 
-var hostserverip = "8.140.114.120:9000";
+var hostserverip = "10.32.64.101:9000";
 
 var table = $('#ticket_table').DataTable({
   ordering: false,
@@ -85,7 +85,7 @@ var table = $('#ticket_table').DataTable({
       { "data": "title" },
       {render: function(data, type, full){return full.workflow_info.workflow_name}},
       {render: function(data, type, full){return full.state.state_name}},
-      {render: function(data, type, full){return full.creator_info.alias}},
+      {render: function(data, type, full){return full.creator}},
       { "data": "gmt_created" },
       {render: function(data, type, full){
        // var detail_link = '<a href ="{% url \'ticketdetailtable\'' + full.id +'%}'+'"' + '详情</a>';

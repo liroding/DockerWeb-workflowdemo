@@ -531,7 +531,9 @@ class MyAllTicket(LoginRequiredMixin, TemplateView):
         _pardata = dict(category=_category,per_page=_per_page,page=_page,workflow_ids=_workflow_ids,\
                         search_value = _search_value,from_admin = _from_admin,title = _title,\
                         create_start = _create_start,create_end = _create_end)
-        ins = WorkFlowAPiRequest(username=self.request.user.username)
+        #ins = WorkFlowAPiRequest(username=self.request.user.username)
+        #username 必须给admin 才可以获取全部tickets，其他用户无法获取
+        ins = WorkFlowAPiRequest(username='admin')
         status,state_result = ins.getdata(parameters=_pardata,method='get',url='/api/v1.0/tickets')
         print(state_result['data']['value'])
         return JsonResponse({'value':state_result})
@@ -541,7 +543,9 @@ class MyUserAdminWorkflows(LoginRequiredMixin, TemplateView):
     template_name = 'workflow/allticket.html'
 
     def get(self, request, *args, **kwargs):
-        ins = WorkFlowAPiRequest(username=self.request.user.username)
+        #ins = WorkFlowAPiRequest(username=self.request.user.username)
+        #username 必须给admin 才可以获取全部tickets，其他用户无法获取
+        ins = WorkFlowAPiRequest(username='admin')
         status,state_result = ins.getdata(parameters={},method='get',url='/api/v1.0/workflows/user_admin')
         print(state_result)
         return JsonResponse({'value':state_result})
