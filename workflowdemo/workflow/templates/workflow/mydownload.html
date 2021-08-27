@@ -53,6 +53,11 @@
 
                          <script>
                              var dataSource = {{data|safe}} ;
+                             var strdata = JSON.stringify(dataSource); //Object 转str
+                             var tmpdata = strdata.replace(/<\/?.+?>/g,"");
+ 　　                            tmpdata = tmpdata.replace(/&nbsp;/ig,"");//剔除&nbsp空格符号
+ 　　                            tmpdata = tmpdata.replace(/ /g,"");//剔除str 中html 标签
+                                 dataSource = JSON.parse(tmpdata); //将剔除后的json字符串转成对象
                              //alert(dataSource);
                              var fileName = '';
  
