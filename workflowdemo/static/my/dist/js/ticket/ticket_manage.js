@@ -1,6 +1,6 @@
 $('#search_workflow').select2({placeholderOption: "first", allowClear:true});
 
-var hostserverip = "10.32.64.101:9000";
+var hostserverip = "8.140.114.120:9000";
 
 var table = $('#ticket_table').DataTable({
   ordering: false,
