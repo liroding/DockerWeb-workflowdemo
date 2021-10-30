@@ -9,6 +9,7 @@
 <script type="text/javascript" charset="utf8" src="{% static 'datatables/media/js/jquery.dataTables.min.js'%} "></script>
 <script type="text/javascript" charset="utf8" src="{% static 'datatables/media/js/dataTables.bootstrap.min.js'%} "></script>
 <script type="text/javascript" src="{% static "plugins/steps/lib.js" %}"></script>
+<script type="text/javascript" charset="utf8" src="{% static 'select2/dist/js/select2.full.min.js'%} "></script>
 <!-- toastr js-->
 <script src="{% static "plugins/toastr/toastr.min.js" %}"></script>
 <script type="application/javascript">
@@ -51,17 +52,16 @@
             }
     });
    
-    function submitsuggestion(transition_id,field_require_check){
+    function submitsuggestion(transition_id,field_require_check,is_accept){
         var comment = $("#comment").val();
-		
-		for (var i = 0; i < array_name.length; i++) {
+        for (var i = 0; i < array_name.length; i++) {
 		   array_data[i] = $("#"+array_name[i]).val();
-		}
+	}
 		
-         paramrs={}
-         for (var i = 0; i<param.length; i++) {                      
+        paramrs={}
+        for (var i = 0; i<param.length; i++) {                      
              paramrs[param[i]]  =  $("#"+param[i]).val();
-             } 
+        } 
         
         if (field_require_check && comment == ""){
             toastr['error']("必须填写处理意见！");
@@ -71,19 +71,21 @@
         
         var data1 = {"username": "{{request.user.username}}", "transition_id": transition_id, "suggestion": comment};
 	    
-		for (var i = 0; i < array_key.length; i++) {                      
+        for (var i = 0; i < array_key.length; i++) {                      
              data1[array_key[i]]  =  array_data[i];
-             } 
+        } 
 		
-	   console.log(data1);
-       var data = Object.assign(data1,paramrs);
-            $.ajax({
-            url: '{% url 'ticketdetail' ticket_id %}',
-            type: 'PATCH',
-            data: JSON.stringify(data),
+	console.log(data1);
+        var data = Object.assign(data1,paramrs);
+     //接单处理
+     if(is_accept == true){
+         $.ajax({
+            url: '{% url 'ticketaccept' ticket_id %}',
+            type: 'GET',
             success: function(data, textStatus, jqXHR) {
-                if (data.code != -1) {
-                    window.location.href = "{% url 'ticket-all'  %}?username=" + '{{request.user.username}}' + "&category=all"
+            if (data.code != -1) {
+                    console.log('ticket accept Success');
+                    window.location.href = window.location.href;
                 }else{
                     toastr['error'](data.msg);
                 }
@@ -92,6 +94,26 @@
                 toastr['error'](data);
             }
         });
+     }else{
+        $.ajax({
+            url: '{% url 'ticketdetail' ticket_id %}',
+            type: 'PATCH',
+            data: JSON.stringify(data),
+            success: function(data, textStatus, jqXHR) {
+            if (data.code != -1) {
+                    window.location.href = window.location.href;
+                   // window.location.href = "{% url 'ticket-all'  %}?username=" + '{{request.user.username}}' + "&category=all"
+                }else{
+                    toastr['error'](data.msg);
+                }
+            },
+            error: function(data, textStatus, jqXHR) {
+                toastr['error'](data);
+            }
+        });
+
+    }
+
     }
     //add by liro
     function viewfieldlist(){
@@ -264,8 +286,12 @@
                                 success: function(data, textStatus, jqXHR) {
                                         if (data.code == 0){
                                             var html = '';
+                                            var html_deliver = '';
                                             for (var i = 0; i < data.data.value.length; i++) {
-                                                html += '<button type="button" class="btn btn-info" onclick=submitsuggestion(' + data.data.value[i].transition_id + ',' + data.data.value[i].field_require_check + ')><span>' + data.data.value[i].transition_name + '</span></button>';
+                                                html += '<button type="button" class="btn btn-info" onclick=submitsuggestion(' + data.data.value[i].transition_id + ',' + data.data.value[i].field_require_check + ','+ data.data.value[i].is_accept +')><span>' + data.data.value[i].transition_name + '</span></button>';
+                                             //转交按钮
+					     html += '<button type="button" class="btn btn-danger" onclick=showDeliverModal()><span>' + '转交'+ '</span></button>';
+
                                             }
                                             $('#commentbutton').append(html);
                                             //处理意见
@@ -316,6 +342,121 @@
             }
         });
     });
+
+
+/////////////////////////add by liro for deliver function///////////////////////////////////
+function showDeliverModal(){
+      $('#ticketDeliverModal').modal('show');
+}
+
+
+$('#deliverTarget').select2({
+  placeholderOption: "first",
+  allowClear:true,
+  language: {
+    searching: function() {
+        return "输入用户名称搜索...";
+    }
+},
+ajax: {
+  url:'{% url 'accountusers' %}',
+  type: 'GET',
+  data: {'username':'{{request.user.username}}'},
+  delay: 300,
+  processResults: function (data) {
+  console.log('处理结果', data);
+  console.log('value=', data.data.data);
+  return {
+    results: data.data.data.value.map(function(item) {
+      return {
+        id: item.username,
+        text: item.username + "(id:" + item.id + "," + "alias:" + item.alias + ")"
+      };
+
+    })
+  };
+
+},
+  },
+
+cache: true
+});
+
+
+
+
+//$('#deliverTarget').select2({
+//  placeholderOption: "first",
+//  allowClear:true,
+//  language: {
+//    searching: function() {
+//        return "输入用户名称搜索...";
+//    }
+//},
+//ajax: {
+//  url:'{% url 'accountusers' %}',
+//  type: 'GET',
+//  data: {'username':'{{request.user.username}}'},
+//  success: function(data, textStatus, jqXHR) {
+//  console.log('处理结果', data);
+//  
+//  return {
+//    results: data.data.value.map(function(item) {
+//      return {
+//        id: item.username,
+//        text: item.username + "(id:" + item.id + "," + "alias:" + item.alias + ")"
+//      };
+//
+//    })
+//  };
+//
+//},
+//  },
+//
+//});
+
+function submitDeliverTicket(){
+  //提交转交
+  var ticketId = getTicketId();
+  var targetUser =  $("#deliverTarget").val();
+  var suggestion = $("#deliverSuggestion").val();
+  var params = {
+    target_username:targetUser,
+    suggestion:suggestion,
+    from_admin:1  // 管理员强制转交
+  };
+  $.ajax({
+    url: "http://8.140.114.120:10000/api/v1.0/tickets/" + ticketId + '/deliver',
+    type: "POST",
+    processDate: false,
+    data : JSON.stringify(params),
+    contentType: 'application/json',
+    success: function(result){
+      if (result.code===0) {
+        swal({
+          title: "转交成功!",
+          text: "2s自动关闭",
+          showConfirmButton: false,
+          timer: 2000,
+        })
+        $("#ticketDeliverModal").modal("hide");
+        window.location.reload();   
+      } else {
+        swal({
+          title: "转交失败:" + result.msg,
+          text: "2s自动关闭",
+          showConfirmButton: false,
+          timer: 2000,
+          icon: 'error',
+        })
+      }
+    }
+  });
+}
+
+
+///////////////////////////////////////////////////////////////
+
 </script>
 {% endblock %}
 {% block css %}
@@ -325,6 +466,13 @@
 <link rel="stylesheet" href="{% static "plugins/steps/style.css" %}" />
 <!--toastr css-->
 <link rel="stylesheet" href="{% static "plugins/toastr/toastr.css" %}">
+
+<link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/steps.min.css' %}">
+
+
+
+
 <style type="text/css">
     #content {
         margin: 0 auto; max-width: 800px; padding: 0 20px;
@@ -384,12 +532,66 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
+<!--
+        <div class="row">
+          <div class="col-md-12">
             <div class="col-md-offset-3 col-md-9" id="commentbutton">
             </div>
+          </div>
+        </div>
+            <button type="button" class="btn btn-danger" style="margin:5px" onclick="showDeliverModal()">转交</button>
+-->
+
+      <div class="modal fade" id="ticketDeliverModal">
+        <div class="modal-dialog" style="width: 980px;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">转交处理人</h4>
+            </div>
+            <form class="form-horizontal"  id='ticket_deliver_form'>
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="deliverTarget" class="col-sm-3 control-label">选择转交人<span style="color:red">*</span></label>
+                  <div class="col-sm-9">
+                    <select class="form-control select2" id="deliverTarget" data-placeholder="选择转交对象" style="width:100%;"></select>
+                    <p class="help-block">输入关键词搜索转交对象</p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="deliverSuggestion" class="col-sm-3 control-label">转交意见</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="deliverSuggestion" required="true" placeholder="请输入你的处理意见">
+                  </div>
+                </div>
+                <input type="text" class="form-control" id="customFieldId" style="display:none">
+              </div>
+              <div class="box-footer">
+                <!-- <button type="submit" class="btn btn-info pull-right">确定</button> -->
+                <input type="button" value="保存" class="btn btn-info pull-right" onclick = "submitDeliverTicket();" />
+              </div>
+              <!-- /.box-footer -->
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+    <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">管理员操作</h3>
+        </div>
+        <div class="box-body" >
+            <div class="col-md-offset-3 col-md-9" id="commentbutton"></div>
+            <div class="col-md-offset-3 col-md-9" id="deliverbutton"></div>
         </div>
     </div>
+
+
 
     <div class="row">
         <fieldset>
