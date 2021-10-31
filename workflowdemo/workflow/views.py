@@ -562,7 +562,7 @@ class TicketAccept(LoginRequiredMixin, TemplateView):
         print("accept end")
         return JsonResponse(data=data)
         
-class GetAccountUsers(LoginRequiredMixin, View):
+class GetRolesUsers(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         request_data = request.GET
         ticket_id = int(request_data.get('ticket_id'))
