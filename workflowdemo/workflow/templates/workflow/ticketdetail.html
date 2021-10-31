@@ -16,6 +16,7 @@
     var array_name = [];   //field_name
 	var array_key = [];   //field_key
 	var array_data = [];  //value
+
 	/*
 	function Dictionary() {
 	this.data = new Array();
@@ -24,6 +25,7 @@
 	};
 	}
 	*/
+    var ticketid = [];
     function getCookie(name) {
             var cookieValue = null;
             if (document.cookie && document.cookie !== '') {
@@ -350,6 +352,9 @@ function showDeliverModal(){
 }
 
 
+
+var ticketid ="{{ticket_id}}";
+
 $('#deliverTarget').select2({
   placeholderOption: "first",
   allowClear:true,
@@ -361,10 +366,11 @@ $('#deliverTarget').select2({
 ajax: {
   url:'{% url 'accountusers' %}',
   type: 'GET',
-  data: {'username':'{{request.user.username}}'},
+  data: {'username':'{{request.user.username}}','ticket_id':ticketid},
   delay: 300,
   processResults: function (data) {
   console.log('处理结果', data);
+  console.log('处理结果1', ticketid);
   console.log('value=', data.data.data);
   return {
     results: data.data.data.value.map(function(item) {

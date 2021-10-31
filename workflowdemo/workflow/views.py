@@ -20,7 +20,7 @@ import logging
 import json
 import csv
 import os,sys 
-import re
+import re,requests
 from django.shortcuts import render,render_to_response
 
 logger = logging.getLogger('django')
@@ -549,3 +549,33 @@ class MyUserAdminWorkflows(LoginRequiredMixin, TemplateView):
         status,state_result = ins.getdata(parameters={},method='get',url='/api/v1.0/workflows/user_admin')
         print(state_result)
         return JsonResponse({'value':state_result})
+
+
+#多用户模式下,某用户先接单
+class TicketAccept(LoginRequiredMixin, TemplateView):
+    def get(self, request, *args, **kwargs):
+        ticket_id = kwargs.get('ticket_id')
+        print('accept')
+        print(ticket_id)
+        ins = WorkFlowAPiRequest(username=self.request.user.username)
+        status,data = ins.getdata({},method='post',url='/api/v1.0/tickets/{0}/accept'.format(ticket_id))
+        print("accept end")
+        return JsonResponse(data=data)
+        
+class GetAccountUsers(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        request_data = request.GET
+        ticket_id = int(request_data.get('ticket_id'))
+        print('GetAccountUsers')
+        ins = WorkFlowAPiRequest(username=self.request.user.username)
+        status,state_result = ins.getdata(parameters={},method='get',url='/api/v1.0/tickets/{0}'.format(ticket_id))
+        #查找roles id
+        rolesid = state_result['data']['value']['state_info']['participant']
+
+        #通过roles id 找users
+        print('t2')
+        status,data = ins.getdata(dict(per_page=20),method='get',url='/api/v1.0/accounts/roles/{0}/_users'.format(rolesid))
+#        status,data = ins.getdata(dict(per_page=20),method='get',url='/api/v1.0/accounts/_users')
+        return JsonResponse({'data':data})
+        #return JsonResponse({'data':ticket_id})
+
