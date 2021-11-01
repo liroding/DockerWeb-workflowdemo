@@ -7,9 +7,9 @@
 {% endif %}
 {% block js %}
 <script type="text/javascript" charset="utf8" src="{% static 'datatables/media/js/jquery.dataTables.min.js'%} "></script>
-<script type="text/javascript" charset="utf8" src="{% static 'datatables/media/js/dataTables.bootstrap.min.js'%} "></script>
 <script type="text/javascript" src="{% static "plugins/steps/lib.js" %}"></script>
 <script type="text/javascript" charset="utf8" src="{% static 'select2/dist/js/select2.full.min.js'%} "></script>
+<script type="text/javascript" charset="utf8" src="{% static 'my/dist/js/sweetalert.min.js'%} "></script>
 <!-- toastr js-->
 <script src="{% static "plugins/toastr/toastr.min.js" %}"></script>
 <script type="application/javascript">
@@ -351,6 +351,11 @@ function showDeliverModal(){
       $('#ticketDeliverModal').modal('show');
 }
 
+function getTicketId() {
+    var urlPath = window.location.pathname;
+    var ticketId = Number(urlPath.split('/')[3]);
+    return ticketId
+}
 
 
 var ticketid ="{{ticket_id}}";
@@ -370,8 +375,6 @@ ajax: {
   delay: 300,
   processResults: function (data) {
   console.log('处理结果', data);
-  console.log('处理结果1', ticketid);
-  console.log('value=', data.data.data);
   return {
     results: data.data.data.value.map(function(item) {
       return {
@@ -389,74 +392,53 @@ cache: true
 });
 
 
-
-
-//$('#deliverTarget').select2({
-//  placeholderOption: "first",
-//  allowClear:true,
-//  language: {
-//    searching: function() {
-//        return "输入用户名称搜索...";
-//    }
-//},
-//ajax: {
-//  url:'{% url 'accountusers' %}',
-//  type: 'GET',
-//  data: {'username':'{{request.user.username}}'},
-//  success: function(data, textStatus, jqXHR) {
-//  console.log('处理结果', data);
-//  
-//  return {
-//    results: data.data.value.map(function(item) {
-//      return {
-//        id: item.username,
-//        text: item.username + "(id:" + item.id + "," + "alias:" + item.alias + ")"
-//      };
-//
-//    })
-//  };
-//
-//},
-//  },
-//
-//});
-
+      //data : JSON.stringify(params),
 function submitDeliverTicket(){
   //提交转交
   var ticketId = getTicketId();
   var targetUser =  $("#deliverTarget").val();
   var suggestion = $("#deliverSuggestion").val();
   var params = {
+    ticketid:ticketId,
     target_username:targetUser,
     suggestion:suggestion,
-    from_admin:1  // 管理员强制转交
+    from_admin:0  // 管理员强制转交
   };
   $.ajax({
-    url: "http://8.140.114.120:10000/api/v1.0/tickets/" + ticketId + '/deliver',
-    type: "POST",
-    processDate: false,
-    data : JSON.stringify(params),
-    contentType: 'application/json',
-    success: function(result){
-      if (result.code===0) {
+      url:'{% url 'deliverusers' %}',
+      type: "GET",
+      processDate: false,
+      data : JSON.stringify(params),
+      contentType: 'application/json',
+      success: function(result){
+      console.log(result); 
+      if (result.data.code==0) {
+        $("#ticketDeliverModal").modal("hide");
+        setTimeout(function(){
         swal({
           title: "转交成功!",
           text: "2s自动关闭",
           showConfirmButton: false,
-          timer: 2000,
         })
-        $("#ticketDeliverModal").modal("hide");
-        window.location.reload();   
+        },100);
+        setTimeout(function(){
+        window.location.reload(); 
+        },2000);  
       } else {
+        setTimeout(function(){
         swal({
-          title: "转交失败:" + result.msg,
+          title: "转交失败:" + result.data.msg,
           text: "2s自动关闭",
           showConfirmButton: false,
-          timer: 2000,
           icon: 'error',
         })
+        },100);
+        setTimeout(function(){
+        window.location.reload(); 
+        },2000);  
       }
     }
+
   });
 }
 
@@ -475,6 +457,7 @@ function submitDeliverTicket(){
 
 <link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
 <link rel="stylesheet" href="{% static 'css/steps.min.css' %}">
+<link rel="stylesheet" href="{% static 'my/dist/css/sweetalert.css' %}">
 
 
 

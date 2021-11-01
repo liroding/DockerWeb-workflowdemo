@@ -1,6 +1,6 @@
 from django.conf.urls import url, include,re_path
 
-from workflow.views import Index ,TicketCreate,AllTicket,TicketDetail,MyTicket,MyToDoTicket, MyRelatedTicket,TicketDetailApi,TicketFlowStep,TicketFlowlog,TicketTransition,GetUserName,TicketFieldList,TicketDownload,DownloadTicketData,MyAllTicket,MyUserAdminWorkflows,TicketAccept,GetRolesUsers# , TicketDetail, TicketCreate
+from workflow.views import Index ,TicketCreate,AllTicket,TicketDetail,MyTicket,MyToDoTicket, MyRelatedTicket,TicketDetailApi,TicketFlowStep,TicketFlowlog,TicketTransition,GetUserName,TicketFieldList,TicketDownload,DownloadTicketData,MyAllTicket,MyUserAdminWorkflows,TicketAccept,GetRolesUsers,DeliverUsers# , TicketDetail, TicketCreate
 
 urlpatterns = [
     re_path(r'^$', Index.as_view(), name='workflow-index'),
@@ -37,5 +37,7 @@ urlpatterns = [
     re_path(r'^ticketaccept/(?P<ticket_id>[0-9]+)/$',TicketAccept.as_view(), name='ticketaccept'),
     #此功能为了获取loonflow 数据库中的用户
     re_path(r'^getrolesuser/$',GetRolesUsers.as_view(), name='accountusers'),
-#    re_path(r'^getaccountuser/(?P<ticket_id>[0-9]+)/$',GetAccountUsers.as_view(), name='accountusers'),
+
+    #此功能将deliver user 的数据提交
+    re_path(r'^deliverusers/$',DeliverUsers.as_view(), name='deliverusers'),
 ]
