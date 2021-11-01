@@ -453,6 +453,7 @@ class TicketFieldList(LoginRequiredMixin,View):
         print(basefieldlist_result)
         return JsonResponse({'value':basefieldlist_result})
 #add by liro
+#此功能返回各workflow对应的下载链接
 class TicketDownload(LoginRequiredMixin, TemplateView):
     template_name = 'workflow/ticketdownload.html'
     def get_context_data(self, **kwargs):
@@ -484,16 +485,33 @@ class DownloadTicketData(LoginRequiredMixin, TemplateView):
  
     def getmykeydata(self,handledata):
         _dellistkey = ['field_key','label','order_id','description','field_attribute','boolean_field_display','default_value','field_template']
+        _steplog_delkeylist = ['transition','intervene_type_id','id','state','participant_type_id','participant_info','ticket_id']
         _dictdata = handledata
         _listdata = _dictdata['data']
         _targetdata = []
         for i in range(len(_listdata)):
-           #筛选需要的key value 然后存放在_targetdata 中
+           #筛选需要的key value 然后存放在_targetdata 中,但包括steplog数据
+           #所以进行len(_listdata[i])-1 操作
            for j in range(len(_listdata[i])):
-              for key in _dellistkey:
-                 del _listdata[i][j][key] 
+              if(j==(len(_listdata[i])-1)):
+                 steplog_total = _listdata[i][j]['total']
+                 steplog_value = _listdata[i][j]['value']
+                 for z in range(len(steplog_value)):
+                     for item in _steplog_delkeylist:
+                          del steplog_value[z][item]
+    
+                 _dictsteplog = {}
+                 _dictsteplog['suggestion_data'] = steplog_value
+                 del _listdata[i][j]    #删除原数据结构
+                 _listdata[i].append(_dictsteplog)     #增加筛选完的数据结构
+                 #print(_listdata[i])
+              else:
+                 for key in _dellistkey:
+                    del _listdata[i][j][key] 
                  #print( _listdata[i][j])
            _targetdata.append(_listdata[i])
+
+
         return _listdata 
       
     def perfectdataformat(self,handledata):
@@ -503,15 +521,32 @@ class DownloadTicketData(LoginRequiredMixin, TemplateView):
         for i in range(len(_data)):
            _dictdata = {}
            for j in range(len(_data[i])):  #此处_data[i] 仍为list,内部是多个dict
-               #field_type_id==45 属于select item,需要转换
-               if _data[i][j]['field_type_id'] == 45:
-                  fieldvalue = _data[i][j]['field_value']
-                  _dictdata[_data[i][j]['field_name']] =  _data[i][j]['field_choice'][fieldvalue]
+
+               #此处增加steplog suggestion数据
+               #由于一个工单的流转会有多个处理人的suggestion
+               #因此,需要做简单的处理才能在excel 显示输出
+               if(j==(len(_data[i])-1)):
+                    #print(_data[i][j])
+                    strdata = ''
+                    suggestion_data = _data[i][j]['suggestion_data']
+                    for x in range(len(suggestion_data)):
+                        strdata = strdata + \
+                          '处理人  :'+ suggestion_data[x]['participant'] + '--' \
+                          '处理时间:'+ suggestion_data[x]['gmt_created'] + '--' \
+                          '处理意见:'+ suggestion_data[x]['suggestion'] + '\r\n'
+                   # print(strdata)
+                    _dictdata['处理历史记录'] = strdata
                else:
-               #_data[i][j] 是一个dict 结构，内部有多个key:value
-                  #value = (_data[i][j]['field_value']).decode(encoding='UTF-8')
-                  #_dictdata[key] = value 
-                  _dictdata[_data[i][j]['field_name']] =  _data[i][j]['field_value']
+                    #field_type_id==45 属于select item,需要转换
+                    if _data[i][j]['field_type_id'] == 45:
+                       fieldvalue = _data[i][j]['field_value']
+                       _dictdata[_data[i][j]['field_name']] =  _data[i][j]['field_choice'][fieldvalue]
+                    else:
+                       #_data[i][j] 是一个dict 结构，内部有多个key:value
+                       #value = (_data[i][j]['field_value']).decode(encoding='UTF-8')
+                       #_dictdata[key] = value 
+                       _dictdata[_data[i][j]['field_name']] =  _data[i][j]['field_value']
+            
            _listdata.append(_dictdata)
         return _listdata
 #-------------------------------------------------------------------#
