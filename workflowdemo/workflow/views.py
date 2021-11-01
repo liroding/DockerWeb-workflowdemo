@@ -579,3 +579,19 @@ class GetRolesUsers(LoginRequiredMixin, View):
         return JsonResponse({'data':data})
         #return JsonResponse({'data':ticket_id})
 
+class DeliverUsers(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        print('DeliverUsers')
+        request_data = request.GET
+        print(request_data)
+        #ticket_id = request_data.get('ticketid')
+        
+        for item in request_data:
+            suggestion = eval(item).get('suggestion')
+            ticket_id  = eval(item).get('ticketid')
+            from_admin = eval(item).get('from_admin')
+            target_username = eval(item).get('target_username')
+        _dictdata =  dict(suggestion=suggestion,target_username=target_username,from_admin=from_admin)
+        ins = WorkFlowAPiRequest(username=self.request.user.username)
+        status,state_result = ins.getdata({},method='post',url='/api/v1.0/tickets/{0}/deliver'.format(ticket_id),data=_dictdata)
+        return JsonResponse({'data':state_result})

@@ -216,20 +216,51 @@
             success: function(data, textStatus, jqXHR) {
 
                     var step = 1 ;
+                    var showstep = 0;
+                    var current_state_id = data.data.current_state_id;
+                    console.log('当前current_state_id=',current_state_id);
                     if (data.code == 0){
                         var html = '';
                         for (var i = 0; i < data.data.value.length; i++) {
+                                console.log('i=',i);
                             if ( data.data.value[i].state_flow_log_list.length >=1 && data.data.value[i].state_flow_log_list[0].transition.transition_name != "拒绝"){
-                                step = i
+                              //  step = i
+                                if(data.data.value[i].state_flow_log_list[0].suggestion != ""){
+                                        //此处suggestion不为空，说明做了deliver 处理
+                                        //deliver 操作时,suggestion为必填项
+                                        showstep = showstep;
+                                }else{
+                                   showstep = showstep + 1;
+				}
+                  		
+							
+                                console.log('showstep=',showstep);
+                                console.log('length=',data.data.value.length);
+                            }
+                             //此处认为进度已经结束 
+                            if(data.data.value[i].state_id == current_state_id){
+                                      showstep = i;
                             }
                             html += '<li><a>'+ data.data.value[i].state_name + '</a></li>';
                         }
                         $('#flowsteps').append(html);
-                        if (step != data.data.value.length ){
-                            bsStep(step+2);
+                     
+                       // if (step != data.data.value.length ){
+                       //   //  bsStep(step+2);
+                       //       bsStep(1);
+                       // }else{
+                       //     bsStep(step+1);
+                       // }
+
+
+                        if (showstep != data.data.value.length ){
+                            bsStep(showstep + 1);
                         }else{
-                            bsStep(step+1);
+                            bsStep(showstep+2);
                         }
+
+
+
                     }else{
                         toastr['warning'](data.msg);
                     }
