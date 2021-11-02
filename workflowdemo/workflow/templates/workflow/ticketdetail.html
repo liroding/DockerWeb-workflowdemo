@@ -321,11 +321,11 @@
                                             var html = '';
                                             var html_deliver = '';
                                             for (var i = 0; i < data.data.value.length; i++) {
-                                                html += '<button type="button" class="btn btn-info" onclick=submitsuggestion(' + data.data.value[i].transition_id + ',' + data.data.value[i].field_require_check + ','+ data.data.value[i].is_accept +')><span>' + data.data.value[i].transition_name + '</span></button>';
+                                                html += '<button style="margin-left:10px;" type="button" class="btn btn-info" onclick=submitsuggestion(' + data.data.value[i].transition_id + ',' + data.data.value[i].field_require_check + ','+ data.data.value[i].is_accept +')><span>' + data.data.value[i].transition_name + '</span></button>';
 
                                             }
                                              //转交按钮
-					     html += '<button type="button" class="btn btn-danger" onclick=showDeliverModal()><span>' + '转交'+ '</span></button>';
+					     html += '<button style="margin-left:10px;" type="button" class="btn btn-danger" onclick=showDeliverModal()><span>' + '转交'+ '</span></button>';
 
                                             $('#commentbutton').append(html);
                                             //处理意见
