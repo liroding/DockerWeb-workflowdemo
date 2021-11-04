@@ -24,6 +24,11 @@
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 
+    <link rel="stylesheet" href="/static/my/dist/css/sweetalert.css">
+
+    <script type="text/javascript" charset="utf8" src="/static/my/dist/js/sweetalert.min.js"></script>
+
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -57,17 +62,23 @@
 <div class="container">
 <form target="form" class="form-signin" action="save" method="post">
     <span>
-        用户:<input class="form-control" type="text" placeholder="输入用户" id="username" name="username">
+        用户:<input class="form-control" type="text" placeholder="输入用户名" id="username" name="username" required >
     </span>
     <br>
     <span>
-        密码:<input class="form-control" type="password" placeholder="输入密码" id="password" name="password">
+        密码:<input class="form-control" type="password" placeholder="输入密码" id="password" name="password" required >
     </span>
     <br>
     <span>
-        邮箱:<input class="form-control" type="text" placeholder="输入邮箱" id="mail" name="mail">
+        邮箱:<input class="form-control" type="text" placeholder="输入邮箱" id="mail" name="mail" required >
+    </span>
+    <span>
+        昵称:<input class="form-control" type="text" placeholder="输入姓名" id="nickname" name="nickname" required >
     </span>
     <br>
+ 
+
+
     <span>
         <button type="submit" class="btn btn-success" name="submit1">注册</button>
     </span>
@@ -83,34 +94,37 @@
 <script src="/static/bootstrap/js/jquery-ui.min.js"></script>
 
 <script>
-//$("#submit").click();
-$("form").submit(function(){
-      	var username = $("#username").val();
-      	var password = $("#password").val();
-      	var mail     = $("#mail").val();
-	if((username == "") || (password=="")){
-		alert("请正确填写,不能为空!!!");
- 	        window.location.href= "";
-        }	
-	else{
-		if(mail == ""){
-		    alert("请填写邮箱,不能为空!!!");
- 	            window.location.href= "";
-                }
-	}
-})	
 $("#form").load(function(){
    var restr = $(this).contents().find("body").text(); 
    if (restr == "login success")
    {
-	alert("注册成功,您注册邮箱会收到提示信息，请您查看~~");
-	url = "../accounts/login"; 
- 	window.location.href= url;	
+	setTimeout(function(){
+	swal({
+	  title: "注册成功,您注册邮箱会收到提示信息，请您查看~~",
+	  text: "3s自动关闭",
+	  showConfirmButton: false,
+	})
+	},100);
+	setTimeout(function(){
+	  url = "../accounts/login"; 
+ 	  window.location.href= url;	
+	},3000);
    }
    else{
-	alert("注册失败:" + restr);
-	url = "register"; 
- 	window.location.href= url;	
+
+        var res = "注册失败" + restr;
+	setTimeout(function(){
+	swal({
+	  title: res,
+	  text: "3s自动关闭",
+	  showConfirmButton: false,
+	})
+	},100);
+	setTimeout(function(){
+	  url = "register"; 
+ 	  window.location.href= url;	
+	},3000);
+
    }
 }
 )

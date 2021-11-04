@@ -27,6 +27,8 @@ class LoginHandleClass():
         user = request.POST['username']
         password = request.POST['password']
         mail = request.POST['mail']
+        nickname = request.POST['nickname']
+
         tmp = LoginDB()
         
         all_user = LoginDB.objects.all() 
@@ -44,6 +46,8 @@ class LoginHandleClass():
             tmp.mail = mail
             tmp.profilesetting = str(int(tmp.profilesetting)+ 1<<0) #mailflag = 1 otherflag = 1<<(10^n)
             tmp.save()
+            #storage to Django db
+            User.objects.create_user(user,mail,password,last_name=nickname,is_staff=1)
             ############### send mail functuon ###########
             if mail:
                  mail_is_null = 1
@@ -54,13 +58,12 @@ class LoginHandleClass():
             if mail_is_null == 1:
                  #add by liro 2020/11/13
                  Instance = MailHandleClass("原生态实验室-工单系统注册成功通知","欢迎您的到来,希望您使用愉快~ "+"\r\n用户: " + user + "\r\n密码：" + password,"11","34",mailstr)
-                 Instance.AutoSendMail()
+            #     Instance.AutoSendMail()
             ############################################
-            #storage to Django db
-            User.objects.create_user(username=user,password=password)
             return HttpResponse("login success")           
+        
         else :
-            return HttpResponse("该账号存在")           
+            return HttpResponse("该账号存在")
 #return HttpResponseRedirect("/q")
         
     def db_query(request):
