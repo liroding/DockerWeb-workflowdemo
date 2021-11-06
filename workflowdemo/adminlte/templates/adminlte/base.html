@@ -107,6 +107,14 @@ $(function(){
 
 
     });
+
+$(function(){
+        var username = '{{request.user}}';
+        if(username != 'admin')
+	{
+		$('ul.treeview-menu li[class=displayalltickets]').hide();
+	}
+});
 </script>
 
 
