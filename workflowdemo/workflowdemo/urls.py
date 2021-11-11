@@ -31,6 +31,9 @@ urlpatterns = [
     path('', Index.as_view(),name='index'),
     path('login/',include('LoginApp.urls')),
     path('notify/',include('LoginApp.urls')),
+
+
+    path('book/',include('BookMeetingApp.urls')),
 ]
 
 if settings.DEBUG:
