@@ -26,22 +26,14 @@ def index(request):
     #book_list = models.Book.objects.all()
     htmls=''
     for room in room_list:
-        print('kl')
-        print(room_list)
-        print(book_list)
+        #print(room_list)
+        #print(book_list)
         htmls += '<tr><td>{}({})</td>'.format(room.caption,room.num)
         for time in time_choice:
             print('k2')
             # 判断该单元格是否被预订
             flag = False
             for book in book_list:
-
-                print('nihao')
-                print(book_list)
-                print(request.user.username)
-                print(book.user.username)
-                print('nihao1')
-
 
                 if book.room.pk == room.pk and book.time_id == time[0]:
                     # 单元格被预定
@@ -50,9 +42,9 @@ def index(request):
             if flag:
                 # 判断当前登录人与预订会议室的人是否一致，一致使用info样式
                 if request.user.username == book.user.username:
-                    htmls += '<td class="info item"  room_id={} time_id={}>{}</td>'.format(room.pk, time[0],book.user.username)
+                    htmls += '<td class="myinfo item"  room_id={} time_id={}>{}</td>'.format(room.pk, time[0],book.user.username)
                 else:
-                    htmls += '<td class="success item"  room_id={} time_id={}>{}</td>'.format(room.pk, time[0],book.user.username)
+                    htmls += '<td class="mysuccess item"  room_id={} time_id={}>{}</td>'.format(room.pk, time[0],book.user.username)
             else:
                 htmls += '<td class="item"  room_id={} time_id={}></td>'.format(room.pk,time[0])
         htmls += "</tr>"

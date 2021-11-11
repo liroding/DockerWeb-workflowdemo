@@ -8,16 +8,15 @@
 
 
 
-
-
 {% block js %}
 <script type="text/javascript" charset="utf8" src="{% static 'datatables/media/js/jquery.dataTables.min.js'%} "></script>
 <script type="text/javascript" charset="utf8" src="{% static 'datatables/media/js/dataTables.bootstrap.min.js'%} "></script>
 
 
 <script src="/static/my/bookmeeting/js/jquery-3.3.1.min.js"></script>
-<script src="/static/my/bookmeeting/bootstrap/js/bootstrap.min.js"></script>
 <script src="/static/my/bookmeeting/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+
+
 <script src="/static/my/bookmeeting/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript" charset="utf8" src="/static/my/dist/js/sweetalert.min.js"></script>
 
@@ -48,11 +47,22 @@
       $(".item").click(function () {
           var room_id = $(this).attr("room_id");
           var time_id = $(this).attr("time_id");
-
+	  //alert(room_id);
+	  //alert(time_id);
           //取消预订
-          if($(this).hasClass("info")){
+          if($(this).hasClass("myinfo")){
+              $(this).removeClass("myinfo").empty();
+      
+	      setTimeout(function(){
+	      swal({
+	        title: "[温馨提示]:您在做取消预定操作",
+	        text: "点击ok确认",
+	        showConfirmButton: false,
+	      })
+	      },100);
+              $(this).addClass("delete");
+
               // 如果点击的标签具有info类，直接删除info类并清空内容
-              $(this).removeClass("info").empty();
               if (POST_DATA.DEL[room_id]){
                   // 在数据中已经存有会议室信息，将新单元格time_id添加进数组
                   POST_DATA.DEL[room_id].push(time_id);
@@ -73,6 +83,7 @@
 
           // 增加预订
           else {
+              //alert('book');
               $(this).addClass("td_active");
               if (POST_DATA.ADD[room_id]){
                   // 在数据中已经存有会议室信息，将新单元格time_id添加进数组
@@ -111,30 +122,29 @@
                 console.log(data);
                 if(data.status==1){
 
-
 	        	setTimeout(function(){
 	        	swal({
 	        	  title: "预定成功",
-	        	  text: "3s自动关闭",
+	        	  text: "2s自动关闭",
 	        	  showConfirmButton: false,
 	        	})
 	        	},100);
 	        	setTimeout(function(){
                 	  window.location.href="";
-	        	},3000);
+	        	},2000);
 
 
                 }else if (data.status==2){
 	        	setTimeout(function(){
 	        	swal({
 	        	  title: "未修改信息",
-	        	  text: "3s自动关闭",
+	        	  text: "2s自动关闭",
 	        	  showConfirmButton: false,
 	        	})
 	        	},100);
 	        	setTimeout(function(){
                 	  window.location.href="";
-	        	},3000);
+	        	},2000);
                 }
 
                 else {
@@ -234,9 +244,18 @@
 
 <style>
     .td_active{
-        background-color: purple;
+        background-color: #9b004e;
+    }
+    .delete{
+        background-color: #7f7f7f;
     }
 
+    .myinfo{
+        background-color: #27c930;
+    }
+    .mysuccess{
+        background-color: #ff8040;
+    }
     #my_div{
         top: 215px!important;
     }
@@ -272,6 +291,8 @@
 		<div class="text-center">
 		    <span>当前用户：<img src="/static/my/bookmeeting/img/info.png" alt=""></span>
 		    <span>其他用户：<img src="/static/my/bookmeeting/img/success.png" alt=""></span>
+		    <span>删除状态：<img src="/static/my/bookmeeting/img/deletestatus.png" alt=""></span>
+		    <span>预定状态：<img src="/static/my/bookmeeting/img/bookstatus.png" alt=""></span>
 		</div>
 		<br>
 		<br>
@@ -305,7 +326,7 @@
 		</table>
 		<div >{% csrf_token %}</div>
 		<div class="col-lg-offset-6" >
-		    <button class="btn btn-info book_btn">预订</button>
+		    <button class="btn btn-info book_btn">提交</button>
 		</div>
 
 
