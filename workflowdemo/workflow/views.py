@@ -25,17 +25,31 @@ from django.shortcuts import render,render_to_response
 
 logger = logging.getLogger('django')
 
+#此功能函数是用户都可以获取所有的workflow
+#class Index(LoginRequiredMixin, TemplateView):
+#    template_name = 'workflow/index.html'
+#    def get_context_data(self, **kwargs):
+#        context = super(Index, self).get_context_data(**kwargs)
+#        #context['workflows'] = Workflow.objects.all()
+#        ins = WorkFlowAPiRequest(username=self.request.user.username)
+#        status,data = ins.getdata(dict(per_page=20, name=''),method='get',url='/api/v1.0/workflows')
+#        if status:
+#            context['workflows'] = data['data']['value']
+#        print("p2")
+#        return context
+
+#修改了url，loonflow 根据url 返回相关的workflow
 class Index(LoginRequiredMixin, TemplateView):
     template_name = 'workflow/index.html'
     def get_context_data(self, **kwargs):
         context = super(Index, self).get_context_data(**kwargs)
         #context['workflows'] = Workflow.objects.all()
         ins = WorkFlowAPiRequest(username=self.request.user.username)
-        status,data = ins.getdata(dict(per_page=20, name=''),method='get',url='/api/v1.0/workflows')
+        status,data = ins.getdata(dict(per_page=20, name=''),method='get',url='/api/v1.0/workflows/user')
         if status:
             context['workflows'] = data['data']['value']
-        print("p2")
         return context
+
 
 class TicketDetail(LoginRequiredMixin, TemplateView):
     template_name = 'workflow/ticketdetail.html'
