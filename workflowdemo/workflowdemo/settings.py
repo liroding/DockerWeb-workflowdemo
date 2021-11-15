@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'workflow',
     'ckeditor',    
     'LoginApp',
+    'BookMeetingApp',
 ]
 
 MIDDLEWARE = [
