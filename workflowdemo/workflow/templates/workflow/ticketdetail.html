@@ -429,7 +429,8 @@ function submitDeliverTicket(){
   //提交转交
   var ticketId = getTicketId();
   var targetUser =  $("#deliverTarget").val();
-  var suggestion = $("#deliverSuggestion").val();
+  //var suggestion = $("#deliverSuggestion").val();
+  var suggestion = $("#comment").val();
   var params = {
     ticketid:ticketId,
     target_username:targetUser,
@@ -581,10 +582,12 @@ function submitDeliverTicket(){
                   </div>
                 </div>
                 <div class="form-group">
+		  <!--
                   <label for="deliverSuggestion" class="col-sm-3 control-label">转交意见</label>
                   <div class="col-sm-9">
                     <input type="text" class="form-control" id="deliverSuggestion" required="true" placeholder="请输入你的处理意见">
                   </div>
+		  -->
                 </div>
                 <input type="text" class="form-control" id="customFieldId" style="display:none">
               </div>

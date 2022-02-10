@@ -73,6 +73,7 @@
                             <th >标题</th>
                             <th >工单类型</th>
                             <th >当前状态</th>
+                            <th >当前处理人</th>
                             <th >创建人</th>
                             <th >创建时间</th>
                             <th >更新时间</th>
@@ -87,6 +88,7 @@
                             <td>{{ticket.title}}</td>
                             <td>{{ticket.workflow_info.workflow_name}}</td>
                             <td>{{ticket.state.state_name}}</td>
+                            <td>{{ticket.participant_info.participant_name}}</td>
                             <td>{{ticket.creator}}</td>
                             <td>{{ticket.gmt_created}}</td>
                             <td>{{ticket.gmt_modified}}</td>
