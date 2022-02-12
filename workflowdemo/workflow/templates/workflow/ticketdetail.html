@@ -76,7 +76,7 @@
         for (var i = 0; i < array_key.length; i++) {                      
              data1[array_key[i]]  =  array_data[i];
         } 
-		
+        //alert(data1);	
 	console.log(data1);
         var data = Object.assign(data1,paramrs);
      //接单处理
@@ -103,7 +103,7 @@
             data: JSON.stringify(data),
             success: function(data, textStatus, jqXHR) {
             if (data.code != -1) {
-                    window.location.href = window.location.href;
+                   window.location.href = window.location.href;
                    // window.location.href = "{% url 'ticket-all'  %}?username=" + '{{request.user.username}}' + "&category=all"
                 }else{
                     toastr['error'](data.msg);
@@ -125,50 +125,60 @@
             type: 'GET',
             data: {'username':'{{request.user.username}}'},
             success: function(data, textStatus, jqXHR) {
-	     //   alert(data.value.code);	
+	     //  alert(data.value.code);	
 	     //   alert(data.value.data.length);	
                 if (data.value.code == 0){
-                        var html = '';
-                        var num = 0;
-                        window.param = new Array();      
-                        for (var i = 0; i < data.value.data.length; i++) {
-                            param.push(data.value.data[i].field_name);
-                            num += 1;
-                            //处理select checkbox等数据显示
-                            //field type id equal to 60 bug need to be fixed
-                            if ( data.value.data[i].field_type_id == 35 || data.value.data[i].field_type_id == 45 ){
-                                console.log(data.value)
-                                html += '<th>'+ data.value.data[i].field_name + '</th><td><textarea cols="58" rows="3" readonly="readonly"  id='+data.value.data[i].field_name +'>'  + data.value.data[i].field_choice[data.value.data[i].field_value] + '</textarea>' + '</td>';
-                          
-                           }else if ( data.value.data[i].field_attribute == 1 ){
-                                 var str = data.value.data[i].field_value;
-				 if(data.value.data[i].field_type_id == 55){
-				      var Newstr = str.replace(/<[^>]*>/g,"");
-				 }else{
-				      var Newstr = str;
-				 }
-                                console.log(data.value)
-                                html += '<th>'+ data.value.data[i].field_name + '</th><td><textarea cols="58" rows="3" readonly="readonly"  id='+data.value.data[i].field_name +'>'  + Newstr + '</textarea>'+'</td>';
+             
+                  var html_begin = '';
+                  var html = '';
+                  var html_last = '';
+                  var num = 0;
+                  window.param = new Array();      
+                  for (var i = 0; i < data.value.data.length; i++) {
+                     param.push(data.value.data[i].field_name);
+                     num += 1;
+                     //处理select checkbox等数据显示
+                     //field type id equal to 60 bug need to be fixed
+                     if ( data.value.data[i].field_type_id == 35 || data.value.data[i].field_type_id == 45 ){
+                         console.log(data.value)
+                         html += '<th style="vertical-align: middle !important;text-align:center">'+ data.value.data[i].field_name + '</th><td><textarea cols="58" rows="3" readonly="readonly"  id='+data.value.data[i].field_name +'>'  + data.value.data[i].field_choice[data.value.data[i].field_value] + '</textarea>' + '</td>';
+                    
+                     }
+		     else if ( data.value.data[i].field_type_id == 55){//富文本编辑器处理模块
+                         var str = data.value.data[i].field_value;
+                         //alert(str);
+		  	 //var Newstr = str.replace(/<[^>]*>/g,"");
+                         html_last = '<th style="vertical-align: middle !important;text-align:center">'+ data.value.data[i].field_name +  '</th><td style="width:100px;border:5px"> ' +  '<div contentEditable="true" style="padding:10px 10px;background:#fff;border-color:#000;border-width:1px;border-style:solid;overflow:auto;width:450px;height:100px">'+ str + '</div>' + '</td>';
+                         html_last = '<tr>' + html_last + '</tr>';
+                         num = num -1 ;
 
-                            }else {
-                                 var str = data.value.data[i].field_value;
-				 if(data.value.data[i].field_type_id == 55){
-				      var Newstr = str.replace(/<[^>]*>/g,"");
-				 }else{
-				      var Newstr = str;
-				 }
-                                 html +='<th>'+ data.value.data[i].field_name + '</th><td><textarea cols="58" rows="3" readonly="readonly"  id='+data.value.data[i].field_name +'>' + Newstr  + '</textarea>'+ '</td>';
+		     }
+                     else{ //此处为普通文本处理模块
+                          var str = data.value.data[i].field_value ;
+	        	  if(data.value.data[i].field_key == "title"){
+                                html_begin='<th style="vertical-align: middle !important;text-align:center" >'+ data.value.data[i].field_name + '</th><td><textarea cols="58" rows="3" readonly="readonly"  id='+data.value.data[i].field_name +'>' + str  + '</textarea>'+ '</td>';
+                                html_begin = '<tr>' + html_begin + '</tr>';
+	                        html = html_begin + html;
+                                num = num -1 ;
+	        	  }else{
+                                html +='<th style="vertical-align: middle !important;text-align:center" >'+ data.value.data[i].field_name + '</th><td><textarea cols="58" rows="3" readonly="readonly"  id='+data.value.data[i].field_name +'>' + str  + '</textarea>'+ '</td>';
+	        	  }
+	             }
 
-                                 array_name.push(data.value.data[i].field_name);
-	        		 array_key.push(data.value.data[i].field_key);
-	        	    }
-	        	    if (num == 2){
-                                num = 0
-                                html = '<tr>' + html + '</tr>';
-                            }	
-	        	}
+
+	             if (num == 2){
+                         num = 0
+                         html = '<tr>' + html + '</tr>';
+                     }
+
+		     //以下两行code 表示将field_name,field_key 更新到array中,后续提交会覆盖数据库原来的数据
+                     //array_name.push(data.value.data[i].field_name);
+	             //array_key.push(data.value.data[i].field_key);
+	          }
 	  	}
+	        html = html + html_last;
                 $('#ticketfieldlist').append(html);
+                //$('#ticketfieldlist').append(html_last);
             },
 
             error: function(data, textStatus, jqXHR) {
@@ -274,78 +284,93 @@
             type: 'GET',
             data: {'username':'{{request.user.username}}'},
             success: function(data, textStatus, jqXHR) {
-                    if (data.code == 0){
-                        var html = '';
-                        var num = 0;
-                        window.param = new Array(); 
-		        if(data.data.value.field_list.length!=0){
-                        for (var i = 0; i < data.data.value.field_list.length; i++) {
-                             param.push(data.data.value.field_list[i].field_name);
-                            num += 1;
-                            //处理select checkbox等数据显示
-                            //field type id equal to 60 bug need to be fixed
-                            if ( data.data.value.field_list[i].field_type_id == 35 || data.data.value.field_list[i].field_type_id == 45 ){
-                                console.log(data.data)
-                                html += '<th>'+ data.data.value.field_list[i].field_name + '</th><td>' + data.data.value.field_list[i].field_choice[data.data.value.field_list[i].field_value] + '</td>';
-                          
-                           }else if ( data.data.value.field_list[i].field_attribute == 1 ){
-                                console.log(data.data)
-                                html += '<th>'+ data.data.value.field_list[i].field_name + '</th><td>' + data.data.value.field_list[i].field_value + '</td>';
+              if (data.code == 0){
+                  var html_begin = '';
+                  var html = '';
+                  var html_last = '';
+                  var num = 0;
+                  window.param = new Array();
+                  //length!=0 说明工单状态处于审核状态，并未结束 
+	          if(data.data.value.field_list.length!=0){
+                  for (var i = 0; i < data.data.value.field_list.length; i++) {
+                     param.push(data.data.value.field_list[i].field_name);
+                     num += 1;
+                     //处理select checkbox等数据显示
+                     //field type id equal to 60 bug need to be fixed
+                     if ( data.data.value.field_list[i].field_type_id == 35 || data.data.value.field_list[i].field_type_id == 45 ){
+                          console.log(data.data)
+                          html += '<th style="vertical-align: middle !important;text-align:center" >'+ data.data.value.field_list[i].field_name + '</th><td><textarea cols="58" rows="3" readonly="readonly"  id=' + data.data.value.field_list[i].field_choice[data.data.value.field_list[i].field_value] + '</textarea>' +  '</td>';
+                    
+                     }
+                     //富文本编辑器处理模块
+		     else if ( data.data.value.field_list[i].field_type_id == 55){
+                         var str = data.data.value.field_list[i].field_value  ;
+	          	 //var Newstr = str.replace(/<[^>]*>/g,"")
+                         console.log(data.data)
+                         html_last ='<th style="vertical-align: middle !important;text-align:center" >'+ data.data.value.field_list[i].field_name + '</th><td style="width:100px;border:5px"> ' +  '<div contentEditable="true" style="padding:10px 10px;background:#fff;border-color:#000;border-width:1px;border-style:solid;overflow:auto;width:450px;height:100px">'+ str + '</div>' + '</td>';
 
-                            }else {
-                                 var str = data.data.value.field_list[i].field_value;
-				 if(data.data.value.field_list[i].field_type_id == 55){
-				      var Newstr = str.replace(/<[^>]*>/g,"")
-				 }else{
-				      var Newstr = str;
-				 }
-                                 html +='<th>'+ data.data.value.field_list[i].field_name + '</th><td><textarea cols="60" rows="3"  id='+data.data.value.field_list[i].field_name +'>' + Newstr  + '</textarea>'+ '</td>';
+                         html_last = '<tr>' + html_last + '</tr>';
+                         num = num -1 ;
 
-                                 array_name.push(data.data.value.field_list[i].field_name);
-				 array_key.push(data.data.value.field_list[i].field_key);
-			    }
-                            if (num == 2){
-                                num = 0
-                                html = '<tr>' + html + '</tr>';
-                            }
+                     }
+                     else{ //此处为普通文本处理模块
+                          var str = data.data.value.field_list[i].field_value ;
+			  if(data.data.value.field_list[i].field_key == "title"){
+                          	html_begin='<th style="vertical-align: middle !important;text-align:center" >'+ data.data.value.field_list[i].field_name + '</th><td><textarea cols="58" rows="3"  id='+data.data.value.field_list[i].field_name +'>' + str  + '</textarea>'+ '</td>';
+                                html_begin = '<tr>' + html_begin + '</tr>';
+		                html = html_begin + html;
+                                num = num -1 ;
+			  }else{
+                          	html +='<th style="vertical-align: middle !important;text-align:center">'+ data.data.value.field_list[i].field_name + '</th><td><textarea cols="58" rows="3"  id='+data.data.value.field_list[i].field_name +'>' + str  + '</textarea>'+ '</td>';
+			  }
+	             }
+                     if (num == 2){
+                          num = 0
+                          html = '<tr>' + html + '</tr>';
+                     }
+		     //以下两行code 表示将field_name,field_key 更新到array中,后续提交会覆盖数据库原来的数据
+                     //array_name.push(data.data.value.field_list[i].field_name);
+	             //array_key.push(data.data.value.field_list[i].field_key);
               
-                        }
-                        $('#ticketdetail').append(html);
-                        //先处理工单显示，为避免处理意见显示位置错乱,待获取工单详情完成后获取用户可执行的操作action
-                            $.ajax({
-                                url: '{% url 'tickettranstion' ticket_id%}',
-                                type: 'GET',
-                                data: {'username':'{{request.user.username}}'},
-                                success: function(data, textStatus, jqXHR) {
-                                        if (data.code == 0){
-                                            var html = '';
-                                            var html_deliver = '';
-                                            for (var i = 0; i < data.data.value.length; i++) {
-                                                html += '<button style="margin-left:10px;" type="button" class="btn btn-info" onclick=submitsuggestion(' + data.data.value[i].transition_id + ',' + data.data.value[i].field_require_check + ','+ data.data.value[i].is_accept +')><span>' + data.data.value[i].transition_name + '</span></button>';
+                  }
+	          html = html + html_last;
+                  $('#ticketdetail').append(html);
+                  //先处理工单显示，为避免处理意见显示位置错乱,待获取工单详情完成后获取用户可执行的操作action
+                      $.ajax({
+                          url: '{% url 'tickettranstion' ticket_id%}',
+                          type: 'GET',
+                          data: {'username':'{{request.user.username}}'},
+                          success: function(data, textStatus, jqXHR) {
+                                  if (data.code == 0){
+                                      var html = '';
+                                      var html_deliver = '';
+                                      for (var i = 0; i < data.data.value.length; i++) {
+                                          html += '<button style="margin-left:10px;" type="button" class="btn btn-info" onclick=submitsuggestion(' + data.data.value[i].transition_id + ',' + data.data.value[i].field_require_check + ','+ data.data.value[i].is_accept +')><span>' + data.data.value[i].transition_name + '</span></button>';
 
-                                            }
-                                             //转交按钮
-					     html += '<button style="margin-left:10px;" type="button" class="btn btn-danger" onclick=showDeliverModal()><span>' + '转交'+ '</span></button>';
+                                      }
+                                       //转交按钮
+	          		     html += '<button style="margin-left:10px;" type="button" class="btn btn-danger" onclick=showDeliverModal()><span>' + '转交'+ '</span></button>';
 
-                                            $('#commentbutton').append(html);
-                                            //处理意见
-                                            $('#ticketdetail').append('<tr><th>处理意见</th><td><textarea wrap="soft" placeholder="请输入处理意见" rows="4" class="form-control" id="comment"></textarea></td></tr>');
-											
-                                        }else{
-                                            toastr['warning'](data.msg);
-                                        }
-                                },
-                                error: function(data, textStatus, jqXHR) {
-                                    toastr['error'](data);
-                                }
-                            });
-                        }
-			else{
-    				viewfieldlist();
-			}
-                    }else{
-                        toastr['warning'](data.msg);
-                    }
+                                      $('#commentbutton').append(html);
+                                      //处理意见
+                                      $('#ticketdetail').append('<tr><th>处理意见</th><td><textarea wrap="soft" placeholder="请输入处理意见" rows="4" class="form-control" id="comment"></textarea></td></tr>');
+	          								
+                                  }else{
+                                      toastr['warning'](data.msg);
+                                  }
+                          },
+                          error: function(data, textStatus, jqXHR) {
+                              toastr['error'](data);
+                          }
+                      });
+                  }
+	          else{
+			//此处显示field 说明工单处于结束状态
+    	          	viewfieldlist();
+	          }
+              }else{
+                  toastr['warning'](data.msg);
+              }
             },
             error: function(data, textStatus, jqXHR) {
                 toastr['error'](data);
