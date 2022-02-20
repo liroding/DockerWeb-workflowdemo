@@ -292,14 +292,14 @@
                   window.param = new Array();
                   //length!=0 说明工单状态处于审核状态，并未结束 
 	          if(data.data.value.field_list.length!=0){
+                  console.log(data.data)
                   for (var i = 0; i < data.data.value.field_list.length; i++) {
                      param.push(data.data.value.field_list[i].field_name);
                      num += 1;
                      //处理select checkbox等数据显示
                      //field type id equal to 60 bug need to be fixed
                      if ( data.data.value.field_list[i].field_type_id == 35 || data.data.value.field_list[i].field_type_id == 45 ){
-                          console.log(data.data)
-                          html += '<th style="vertical-align: middle !important;text-align:center" >'+ data.data.value.field_list[i].field_name + '</th><td><textarea cols="58" rows="3" readonly="readonly"  id=' + data.data.value.field_list[i].field_choice[data.data.value.field_list[i].field_value] + '</textarea>' +  '</td>';
+                          html += '<th style="vertical-align: middle !important;text-align:center" >'+ data.data.value.field_list[i].field_name + '</th><td><textarea cols="58" rows="3" readonly="readonly"  id=' + data.data.value.field_list[i].field_name +'>' + data.data.value.field_list[i].field_choice[data.data.value.field_list[i].field_value] + '</textarea>' +  '</td>';
                     
                      }
                      //富文本编辑器处理模块
@@ -329,8 +329,8 @@
                           html = '<tr>' + html + '</tr>';
                      }
 		     //以下两行code 表示将field_name,field_key 更新到array中,后续提交会覆盖数据库原来的数据
-                     //array_name.push(data.data.value.field_list[i].field_name);
-	             //array_key.push(data.data.value.field_list[i].field_key);
+                    // array_name.push(data.data.value.field_list[i].field_name);
+	            // array_key.push(data.data.value.field_list[i].field_key);
               
                   }
 	          html = html + html_last;
