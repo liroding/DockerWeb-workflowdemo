@@ -167,7 +167,7 @@
 
 
 	             if (num == 2){
-                         num = 0
+                         num = 0;
                          html = '<tr>' + html + '</tr>';
                      }
 
@@ -284,6 +284,7 @@
             type: 'GET',
             data: {'username':'{{request.user.username}}'},
             success: function(data, textStatus, jqXHR) {
+                  console.log(data)
               if (data.code == 0){
                   var html_begin = '';
                   var html = '';
@@ -316,16 +317,19 @@
                      else{ //此处为普通文本处理模块
                           var str = data.data.value.field_list[i].field_value ;
 			  if(data.data.value.field_list[i].field_key == "title"){
-                          	html_begin='<th style="vertical-align: middle !important;text-align:center" >'+ data.data.value.field_list[i].field_name + '</th><td><textarea cols="58" rows="3"  id='+data.data.value.field_list[i].field_name +'>' + str  + '</textarea>'+ '</td>';
+                          	html_begin='<th style="vertical-align: middle !important;text-align:center" >'+ data.data.value.field_list[i].field_name + '</th><td><textarea cols="58" rows="3" readonly="readonly" id='+data.data.value.field_list[i].field_name +'>' + str  + '</textarea>'+ '</td>';
                                 html_begin = '<tr>' + html_begin + '</tr>';
 		                html = html_begin + html;
                                 num = num -1 ;
 			  }else{
-                          	html +='<th style="vertical-align: middle !important;text-align:center">'+ data.data.value.field_list[i].field_name + '</th><td><textarea cols="58" rows="3"  id='+data.data.value.field_list[i].field_name +'>' + str  + '</textarea>'+ '</td>';
+                          	html +='<th style="vertical-align: middle !important;text-align:center">'+ data.data.value.field_list[i].field_name + '</th><td><textarea cols="58" rows="3" readonly="readonly" id='+data.data.value.field_list[i].field_name +'>' + str  + '</textarea>'+ '</td>';
+
 			  }
+
+
 	             }
                      if (num == 2){
-                          num = 0
+                          num = 0;
                           html = '<tr>' + html + '</tr>';
                      }
 		     //以下两行code 表示将field_name,field_key 更新到array中,后续提交会覆盖数据库原来的数据
@@ -353,7 +357,7 @@
 
                                       $('#commentbutton').append(html);
                                       //处理意见
-                                      $('#ticketdetail').append('<tr><th>处理意见</th><td><textarea wrap="soft" placeholder="请输入处理意见" rows="4" class="form-control" id="comment"></textarea></td></tr>');
+                                      $('#ticketdetail').append('<tr><th style="vertical-align: middle !important;text-align:center"  >处理意见</th><td><textarea wrap="soft" placeholder="请输入处理意见" rows="4" class="form-control" id="comment"></textarea></td></tr>');
 	          								
                                   }else{
                                       toastr['warning'](data.msg);
