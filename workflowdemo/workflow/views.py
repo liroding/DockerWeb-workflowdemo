@@ -46,8 +46,10 @@ class Index(LoginRequiredMixin, TemplateView):
         #context['workflows'] = Workflow.objects.all()
         ins = WorkFlowAPiRequest(username=self.request.user.username)
         status,data = ins.getdata(dict(per_page=20, name=''),method='get',url='/api/v1.0/workflows/user')
-        if status:
+        if status and data['code']!= -1:
             context['workflows'] = data['data']['value']
+        else:
+            print(data['msg']) 
         return context
 
 
@@ -275,7 +277,7 @@ class MyTicket(LoginRequiredMixin, TemplateView):
         # 待办,关联的,创建
         ins = WorkFlowAPiRequest(username=self.request.user.username)
         status,state_result = ins.getdata(parameters=dict(category='owner',per_page=100),method='get',url='/api/v1.0/tickets')
-        if status:
+        if status and state_result['code']!=-1:
             if len(state_result) > 0 and isinstance(state_result,dict) and 'data' in state_result.keys() and 'value' in state_result['data'].keys():
                 context['ticket_result_restful_list'] = state_result['data']['value']
         context['msg'] = state_result['msg']
@@ -327,7 +329,7 @@ class MyRelatedTicket(LoginRequiredMixin, TemplateView):
         category = request_data.get('category')
         ins = WorkFlowAPiRequest(username=self.request.user.username)
         status,state_result = ins.getdata(parameters=dict(category='relation',per_page=100),method='get',url='/api/v1.0/tickets')
-        if status:
+        if status and state_result['code']!=-1:
             if len(state_result) > 0 and isinstance(state_result,dict) and 'data' in state_result.keys() and 'value' in state_result['data'].keys():
                 context['ticket_result_restful_list'] = state_result['data']['value']
         context['msg'] = state_result['msg']
@@ -475,7 +477,7 @@ class TicketDownload(LoginRequiredMixin, TemplateView):
         #context['workflows'] = Workflow.objects.all()
         ins = WorkFlowAPiRequest(username=self.request.user.username)
         status,data = ins.getdata(dict(per_page=20, name=''),method='get',url='/api/v1.0/workflows')
-        if status:
+        if status and data['code']!=-1:
             context['workflows'] = data['data']['value']
         return context
 
